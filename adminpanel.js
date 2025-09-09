@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, doc, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,10 +23,12 @@
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   const db = getFirestore(app);
+  const storage = getStorage(app);
 
   window.addEventListener('DOMContentLoaded', () => {
     // Hero Section
     
+    let heroImageFile = null;
     const heroUploadBtn = document.getElementById('heroupload');
     if (heroUploadBtn) {
       const fileInput = document.createElement('input');
@@ -41,6 +44,7 @@
       fileInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
+          heroImageFile = file;
           updateHeroUploadUI(file.name);
         }
       });
@@ -66,6 +70,7 @@
         heroUploadDrag.style.background = '';
         const file = e.dataTransfer.files[0];
         if (file && file.type.startsWith('image/')) {
+          heroImageFile = file;
           updateHeroUploadUI(file.name);
         } else {
           alert('Please drop a valid image file.');
@@ -91,16 +96,42 @@
       }
     }
 
-    const heroForm = document.querySelector('form');
+    const heroForm = document.getElementById('heroform');
     if (heroForm) {
+      // Create loader element
+      const loader = document.createElement('div');
+      loader.id = 'heroform-loader';
+      loader.className = 'fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-30 z-50';
+      loader.innerHTML = '<div class="bg-white rounded-lg px-6 py-4 shadow text-lg font-semibold flex items-center"><svg class="animate-spin mr-2 h-6 w-6 text-[#21C97B]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>Saving...</div>';
       heroForm.onsubmit = async function(e) {
         e.preventDefault();
-        const headline = document.getElementById('headline').value;
-        const subtext = document.getElementById('subtext').value;
-        await addDoc(collection(db, "heroSection"), {
+        const headline = document.getElementById('headline').value.trim();
+        const subtext = document.getElementById('subtext').value.trim();
+        if (!headline || !subtext || !heroImageFile) {
+          alert('Please fill in all fields and select an image.');
+          return;
+        }
+        document.body.appendChild(loader);
+        let imageUrl = '';
+        if (heroImageFile) {
+          const storageRef = ref(storage, 'heroImages/' + Date.now() + '_' + heroImageFile.name);
+          await uploadBytes(storageRef, heroImageFile);
+          imageUrl = await getDownloadURL(storageRef);
+        }
+        // Get the first doc in heroSection, or create one if none exists
+        const heroSectionSnap = await getDocs(collection(db, "heroSection"));
+        let docId;
+        if (!heroSectionSnap.empty) {
+          docId = heroSectionSnap.docs[0].id;
+        } else {
+          docId = "main";
+        }
+        await setDoc(doc(db, "heroSection", docId), {
           headline,
-          subtext
+          subtext,
+          imageUrl
         });
+        document.body.removeChild(loader);
         alert('Hero Section saved!');
       };
     }
