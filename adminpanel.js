@@ -137,62 +137,138 @@
     }
 
     // Social Proof Section
-    const socialForm = document.querySelectorAll('form')[1];
+    const socialForm = document.getElementById('socialproofform');
     if (socialForm) {
+       // Create loader element
+      const loader = document.createElement('div');
+      loader.id = 'socialproofform-loader';
+      loader.className = 'fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-30 z-50';
+      loader.innerHTML = '<div class="bg-white rounded-lg px-6 py-4 shadow text-lg font-semibold flex items-center"><svg class="animate-spin mr-2 h-6 w-6 text-[#21C97B]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>Saving...</div>';
       socialForm.onsubmit = async function(e) {
         e.preventDefault();
-        const video = document.getElementById('video').value;
-        const students = document.getElementById('students').value;
-        const earnings = document.getElementById('earnings').value;
-        const subtext = document.getElementById('social-subtext').value;
-        await addDoc(collection(db, "socialProof"), {
+        if (!video || !socsubtext| !students || !earnings) {
+          alert('Please fill in all fields and select an image.');
+          return;
+        }
+        document.body.appendChild(loader);
+        const video = document.getElementById('video').value.trim();
+        const students = document.getElementById('students').value.trim();
+        const earnings = document.getElementById('earnings').value.trim();
+        const socsubtext = document.getElementById('social-subtext').value.trim();
+        // Get the first doc in heroSection, or create one if none exists
+        const socialProofSnap = await getDocs(collection(db, "socialProof"));
+        let docId;
+        if (!socialProofSnap.empty) {
+          docId = socialProofSnap.docs[0].id;
+        } else {
+          docId = "main";
+        }
+        await setDoc(doc(db, "socialProof", docId), {
           video,
           students,
           earnings,
-          subtext
+          socsubtext
         });
-        alert('Social Proof saved!');
+        document.body.removeChild(loader);
+        alert('Hero Section saved!');
       };
     }
 
     // Packages Section
-    const packageForm = document.querySelectorAll('form')[2];
-    if (packageForm) {
-      packageForm.onsubmit = async function(e) {
+    const package1formEl = document.querySelector('#package1form form');
+    const package2formEl = document.querySelector('#package2form form');
+
+    if (package1formEl) {
+      package1formEl.onsubmit = async function(e) {
         e.preventDefault();
-        const headline = document.getElementById('package-headline').value;
-        const subtext = document.getElementById('package-subtext').value;
-        const price = document.getElementById('package-price').value;
-        // Features: get all feature inputs
-        const features = Array.from(packageForm.querySelectorAll('input[type="text"]')).slice(3).map(f => f.value);
-        await addDoc(collection(db, "packages"), {
+        const headline = document.getElementById('package1-headline').value.trim();
+        const subtext = document.getElementById('package1-subtext').value.trim();
+        const price = document.getElementById('package1-price').value.trim();
+        const features = Array.from(package1formEl.querySelectorAll('input[type="text"]')).slice(3).map(f => f.value.trim());
+        if (!headline || !subtext || !price || features.some(f => !f)) {
+          alert('Please fill in all fields.');
+          return;
+        }
+        const loader = document.createElement('div');
+        loader.className = 'fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-30 z-50';
+        loader.innerHTML = '<div class="bg-white rounded-lg px-6 py-4 shadow text-lg font-semibold flex items-center"><svg class="animate-spin mr-2 h-6 w-6 text-[#21C97B]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>Saving...</div>';
+        document.body.appendChild(loader);
+        await setDoc(doc(db, "packages", "package1"), {
           headline,
           subtext,
           price,
           features
         });
-        alert('Package saved!');
+        document.body.removeChild(loader);
+        alert('Package 1 saved!');
       };
     }
 
-    // Why Choose Acorn Section
-    const whyForm = document.querySelectorAll('form')[3];
-    if (whyForm) {
-      whyForm.onsubmit = async function(e) {
+    if (package2formEl) {
+      package2formEl.onsubmit = async function(e) {
         e.preventDefault();
-        const section1Headline = document.getElementById('section1-headline').value;
-        const section1Subtext = document.getElementById('section1-subtext').value;
-        const section2Headline = document.getElementById('section2-headline').value;
-        const section2Subtext = document.getElementById('section2-subtext').value;
-        await addDoc(collection(db, "whyChooseAcorn"), {
-          section1Headline,
-          section1Subtext,
-          section2Headline,
-          section2Subtext
+        const headline = document.getElementById('package2-headline').value.trim();
+        const subtext = document.getElementById('package2-subtext').value.trim();
+        const price = document.getElementById('package2-price').value.trim();
+        const features = Array.from(package2formEl.querySelectorAll('input[type="text"]')).slice(3).map(f => f.value.trim());
+        if (!headline || !subtext || !price || features.some(f => !f)) {
+          alert('Please fill in all fields.');
+          return;
+        }
+        const loader = document.createElement('div');
+        loader.className = 'fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-30 z-50';
+        loader.innerHTML = '<div class="bg-white rounded-lg px-6 py-4 shadow text-lg font-semibold flex items-center"><svg class="animate-spin mr-2 h-6 w-6 text-[#21C97B]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>Saving...</div>';
+        document.body.appendChild(loader);
+        await setDoc(doc(db, "packages", "package2"), {
+          headline,
+          subtext,
+          price,
+          features
         });
-        alert('Why Choose Acorn saved!');
+        document.body.removeChild(loader);
+        alert('Package 2 saved!');
       };
     }
+
+    // Packages Section Tab Switching
+    const package1tab = document.getElementById('package1tab');
+    const package2tab = document.getElementById('package2tab');
+    const package1form = document.getElementById('package1form');
+    const package2form = document.getElementById('package2form');
+
+    if (package1tab && package2tab && package1form && package2form) {
+      package1tab.addEventListener('click', function() {
+        package1form.style.display = '';
+        package2form.style.display = 'none';
+        package1tab.className = 'font-bold text-base px-4 py-1 rounded-full bg-[#21C97B] text-white';
+        package2tab.className = 'text-gray-500 text-base px-4 py-1 rounded-full bg-gray-100';
+      });
+      package2tab.addEventListener('click', function() {
+        package1form.style.display = 'none';
+        package2form.style.display = '';
+        package2tab.className = 'font-bold text-base px-4 py-1 rounded-full bg-[#21C97B] text-white';
+        package1tab.className = 'text-gray-500 text-base px-4 py-1 rounded-full bg-gray-100';
+      });
+    }
+
+    // Why Choose Acorn Section
+    // const whyForm = document.querySelectorAll('form')[3];
+    // if (whyForm) {
+    //   whyForm.onsubmit = async function(e) {
+    //     e.preventDefault();
+    //     const section1Headline = document.getElementById('section1-headline').value;
+    //     const section1Subtext = document.getElementById('section1-subtext').value;
+    //     const section2Headline = document.getElementById('section2-headline').value;
+    //     const section2Subtext = document.getElementById('section2-subtext').value;
+    //     await addDoc(collection(db, "whyChooseAcorn"), {
+    //       section1Headline,
+    //       section1Subtext,
+    //       section2Headline,
+    //       section2Subtext
+    //     });
+    //     alert('Why Choose Acorn saved!');
+    //   };
+    // }
 
     // Testimonials Management Section
     const testimonialForm = document.querySelectorAll('form')[4];
