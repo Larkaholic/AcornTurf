@@ -13,95 +13,85 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="text-slate-800 antialiased scroll-smooth">
+<body>
+    <nav class="flex items-center justify-between px-10 py-6">
+        <div class="text-[32px] font-bold text-[#015648]">Acorn Turf LLC</div>
+        <ul class="flex space-x-8 text-lg font-medium text-black">
+            <li><a href="#" class="hover:text-green-700">Home</a></li>
+            <li><a href="#" class="hover:text-green-700">About</a></li>
+            <li><a href="#" class="hover:text-green-700">Programs</a></li>
+            <li><a href="#" class="hover:text-green-700">Success Stories</a></li>
+        </ul>
+        <a href="#" class="bg-[#015648] text-white px-6 py-4 text-lg rounded-full font-semibold shadow hover:bg-green-700 transition">Book a Call</a>
+    </nav>
 
-  <!-- SECTION 00: NAVBAR -->
-    <header class="fixed inset-x-0 top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-100">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6">
-            <div class="h-16 flex items-center justify-between">
-                <a href="#hero" class="font-[Poppins] font-bold text-[32px] leading-[36px] tracking-[0] text-[#015648]">Acorn Turf LLC</a>
-
-
-                <!-- Desktop nav -->
-                <nav class="hidden md:flex items-center gap-7 text-sm">
-                    <a href="#hero" class="hover:text-emerald-700">Home</a>
-                    <a href="#about" class="hover:text-emerald-700">About</a>
-                    <a href="#programs" class="hover:text-emerald-700">Programs</a>
-                    <a href="#success" class="hover:text-emerald-700">Success Stories</a>
-                    <a href="#contact" class="inline-flex items-center rounded-full bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700 transition">Book a Call</a>
-                </nav>
-
-                <!-- Burger -->
-                <button id="openDrawer" class="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-200 hover:bg-slate-50" aria-label="Open menu">
-                    <!-- burger icon -->
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                </button>
+    <!-- Hero Section -->
+    <section class="flex flex-col-reverse lg:flex-row items-center justify-between max-w-full mx-auto px-28 py-16">
+        <!-- Left: Text -->
+        <div class="flex-1 flex flex-col items-start justify-center space-y-6">
+            <h1 class="text-[40px] md:text-[80px] font-semibold text-black leading-[88px]">
+                Launch Your <br>
+                Amazon Brand <br>
+                in <span class="text-[#2ECC71]">90 Days</span>
+            </h1>
+            <p class="text-2xl text-[#1E1E1E] max-w-xl">
+                From overwhelmed to confident Amazon brand owner — with hands-on mentorship or done-for-you execution.
+            </p>
+            <div class="flex space-x-6">
+                <a href="#" class="bg-green-500 text-white px-8 py-3 rounded-full font-normal shadow hover:bg-green-600 transition flex items-center space-x-2">
+                    <span>Book Free Call</span>
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+                <a href="#" class="border border-gray-400 text-gray-800 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition">Learn More</a>
             </div>
         </div>
-
-        <!-- Mobile drawer -->
-        <div id="drawerBackdrop" class="hidden fixed inset-0 z-40 bg-black/40"></div>
-        <aside id="drawer" class="hidden fixed inset-y-0 right-0 z-50 w-72 max-w-[85%] bg-white shadow-xl border-l border-slate-100 p-6 overflow-y-auto no-scrollbar">
-            <div class="flex items-center justify-between mb-6">
-                <span class="font-semibold text-emerald-700">Acorn Turf LLC</span>
-                <button id="closeDrawer" class="h-9 w-9 inline-flex items-center justify-center rounded-md border border-slate-200 hover:bg-slate-50" aria-label="Close menu">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                </button>
-            </div>
-            <nav class="grid gap-[49px] text-[15px]">
-                <a class="py-2" href="#hero">Home</a>
-                <a class="py-2" href="#about">About</a>
-                <a class="py-2" href="#programs">Programs</a>
-                <a class="py-2" href="#success">Success Stories</a>
-                <a href="#contact" class="inline-flex items-center justify-center gap-[10px] rounded-[24px] border border-[#015648] bg-[#015648] px-6 py-3 text-white hover:bg-[#014036] transition">Book a Call</a>
-            </nav>
-        </aside>
-    </header>
-
-  <main class="pt-20 md:pt-24">
-    <!-- SECTION 01: HERO                                          -->
-    <section id="hero" class="relative">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-10 md:py-16 reveal">
-                <div>
-                    <h1 class="font-[Poppins] font-semibold text-[80px] leading-[88px] tracking-[0]">Launch Your Amazon Brand in <span class="text-[#015648]"><br>90 Days</span></h1>
-
-                    <p class="mt-4 text-slate-600 max-w-xl">
-                    From overwhelmed to confident Amazon brand owner — with hands-on mentorship or done-for-you execution.
-                    </p>
-                    <div class="mt-6 flex flex-wrap gap-3">
-                    <a href="#contact" class="inline-flex items-center rounded-full bg-emerald-600 px-5 py-3 text-white hover:bg-emerald-700">Book a Free Call</a>
-                    <a href="#programs" class="inline-flex items-center rounded-full border border-slate-300 px-5 py-3 hover:bg-slate-50">Learn More</a>
-                    </div>
-                </div>
-                <div class="md:justify-self-end">
-                    <div class="rounded-3xl w-[558px] h-[638px] flex items-center justify-center">
-                        <img src="./src/Hero.png" alt="Business Woman" class="object-cover w-full h-full rounded-bl-[160px] rounded-3xl" />
-                </div>
+        <!-- Right: Image -->
+        <div class="flex-1 flex items-center justify-center mb-10 lg:mb-0">
+            <div class="rounded-3xl w-[558px] h-[638px] flex items-center justify-center">
+                <img src="./src/rectangle 7.jpg" alt="Business Woman" class="object-cover w-full h-full rounded-bl-[160px] rounded-3xl" />
             </div>
         </div>
     </section>
-    <!-- SECTION 02: STAT STRIP (DARK GREEN)                        -->
-    <section class="relative">
-        <div class="bg-[#015648] text-white">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6">
-                <div class="py-8 md:py-10 grid grid-cols-3 gap-4 text-center reveal">
-                    <div>
-                        <div class="text-2xl md:text-3xl font-bold">50+</div>
-                        <div class="opacity-90 text-sm md:text-base">Video Testimonials</div>
+
+    <!-- SECTION 02: STAT STRIP (DARK GREEN) -->
+        <section class="relative">
+            <div class="bg-[#015648] text-white">
+                <div class="mx-auto max-w-7xl px-4 sm:px-6">
+                    <div class="py-6 md:py-8 text-center">
+                        <div class="text-[18px] text-white/70 font-normal">Trusted by 50+ successful Amazon Sellers worldwide</div>
                     </div>
-                    <div>
-                        <div class="text-2xl md:text-3xl font-bold">100+</div>
-                        <div class="opacity-90 text-sm md:text-base">Students Mentored</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl md:text-3xl font-bold">$7k–$15k</div>
-                        <div class="opacity-90 text-sm md:text-base">Avg Monthly Earnings</div>
+
+                    <div class="py-6 md:py-1">
+                        <div class="max-w-4xl mx-auto flex items-center justify-center text-center mb-10">
+                            <!-- Stat 1 -->
+                            <div class="px-6">
+                                <div class="text-3xl md:text-[40px] font-bold">50+</div>
+                                <div class="opacity-70 text-sm md:text-base mt-4">Video Testimonials</div>
+                            </div>
+
+                            <!-- Divider -->
+                            <div class="h-10 w-px bg-white/30" aria-hidden="true"></div>
+
+                            <!-- Stat 2 -->
+                            <div class="px-6">
+                                <div class="text-3xl md:text-[40px] font-bold">100+</div>
+                                <div class="opacity-70 text-sm md:text-base mt-4">Students Mentored</div>
+                            </div>
+
+                            <!-- Divider -->
+                            <div class="h-10 w-px bg-white/30" aria-hidden="true"></div>
+
+                            <!-- Stat 3 -->
+                            <div class="px-6">
+                                <div class="text-3xl md:text-[40px] font-bold">$7k–$15k</div>
+                                <div class="opacity-70 text-sm md:text-base mt-4">Avg Monthly Earnings</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
     <!-- SECTION 03: TRANSFORM (Before/After + 6 cards) -->
     <section class="relative bg-white rounded-t-[120px]">
         <div class="absolute top-0 left-0 w-full h-[180px] bg-[#015648] rounded-b-[60px] -z-10"></div>
@@ -116,7 +106,7 @@
 
             <div class="relative flex justify-center items-start">
                 <!-- Images wrapper -->
-                <div class="relative flex items-start space-x-6">
+                <div class="relative flex items-start">
                     <!-- Before -->
                     <div class="relative w-[650px] h-[608px]">
                         <span class="absolute w-[120px] h-[48px] -top-[20px] left-1/2 -translate-x-1/2 bg-red-500 text-white text-[20px] font-medium leading-[24px] flex items-center justify-center rounded-xl shadow z-20">Before</span>
@@ -136,7 +126,7 @@
 
                 <!-- Center vertical divider (circle) -->
                 <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
-                    <div class="w-12 h-12 bg-yellow-400 text-white rounded-full flex items-center justify-center font-semibold">V</div>
+                    <div class="w-12 h-12 bg-yellow-400 text-white rounded-full flex items-center justify-center font-semibold">VS</div>
                 </div>
 
                 <!-- Overlapping cards: placed halfway down the images -->
@@ -237,36 +227,36 @@
         </div>
     </section>
 
-  <!-- SECTION 12: FOOTER -->
-    <!-- <footer class="bg-[#002F29] text-emerald-50">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 py-10 grid gap-8 md:grid-cols-3">
-            <div>
-                <div class="font-semibold">Acorn Turf LLC</div>
-                <p class="mt-2 text-emerald-100/80 text-sm">We empower aspiring entrepreneurs to launch and scale their own Amazon brands.</p>
-                <a href="#contact" class="mt-4 inline-flex rounded-full bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-500">Book a Free Call →</a>
+    <!-- SECTION 12: FOOTER -->
+        <!-- <footer class="bg-[#002F29] text-emerald-50">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 py-10 grid gap-8 md:grid-cols-3">
+                <div>
+                    <div class="font-semibold">Acorn Turf LLC</div>
+                    <p class="mt-2 text-emerald-100/80 text-sm">We empower aspiring entrepreneurs to launch and scale their own Amazon brands.</p>
+                    <a href="#contact" class="mt-4 inline-flex rounded-full bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-500">Book a Free Call →</a>
+                </div>
+                <div>
+                    <div class="font-semibold">Quick Links</div>
+                    <ul class="mt-2 space-y-2 text-sm text-emerald-100/80">
+                    <li><a href="#about" class="hover:text-white">About us</a></li>
+                    <li><a href="#programs" class="hover:text-white">Programs</a></li>
+                    <li><a href="#faq" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="font-semibold">Contact Us</div>
+                    <ul class="mt-2 space-y-2 text-sm text-emerald-100/80">
+                    <li>website@example.com</li>
+                    <li>+639 456 7890</li>
+                    <li>Baguio City, Philippines</li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <div class="font-semibold">Quick Links</div>
-                <ul class="mt-2 space-y-2 text-sm text-emerald-100/80">
-                <li><a href="#about" class="hover:text-white">About us</a></li>
-                <li><a href="#programs" class="hover:text-white">Programs</a></li>
-                <li><a href="#faq" class="hover:text-white">FAQ</a></li>
-                </ul>
+            <div class="border-t border-emerald-800">
+                <div class="mx-auto max-w-7xl px-4 sm:px-6 py-4 text-xs text-emerald-100/70 text-center">© 2025 Acorn Turf LLC. All rights reserved · Privacy Policy · Terms of Service</div>
             </div>
-            <div>
-                <div class="font-semibold">Contact Us</div>
-                <ul class="mt-2 space-y-2 text-sm text-emerald-100/80">
-                <li>website@example.com</li>
-                <li>+639 456 7890</li>
-                <li>Baguio City, Philippines</li>
-                </ul>
-            </div>
-        </div>
-        <div class="border-t border-emerald-800">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 py-4 text-xs text-emerald-100/70 text-center">© 2025 Acorn Turf LLC. All rights reserved · Privacy Policy · Terms of Service</div>
-        </div>
-    </footer> -->
-  <!-- SCRIPTS: Drawer, Outside-click, ESC, Scroll reveal, FAQ    -->
-  <script src="/script/script.js"></script>
+        </footer> -->
+    <!-- SCRIPTS: Drawer, Outside-click, ESC, Scroll reveal, FAQ    -->
+<script src="/script/script.js"></script>
 </body>
 </html>
