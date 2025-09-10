@@ -173,7 +173,7 @@
         alert('Hero Section saved!');
       };
     }
-
+//---------------------------------------------------------------------//
     // Packages Section
     const package1formEl = document.querySelector('#package1form form');
     const package2formEl = document.querySelector('#package2form form');
@@ -250,57 +250,211 @@
         package1tab.className = 'text-gray-500 text-base px-4 py-1 rounded-full bg-gray-100';
       });
     }
+//--------------------------------------------------------------------//
+     //Why Choose Acorn Section
+    let section1ImageFile = null;
+    let section2ImageFile = null;
 
-    // Why Choose Acorn Section
-    // const whyForm = document.querySelectorAll('form')[3];
-    // if (whyForm) {
-    //   whyForm.onsubmit = async function(e) {
-    //     e.preventDefault();
-    //     const section1Headline = document.getElementById('section1-headline').value;
-    //     const section1Subtext = document.getElementById('section1-subtext').value;
-    //     const section2Headline = document.getElementById('section2-headline').value;
-    //     const section2Subtext = document.getElementById('section2-subtext').value;
-    //     await addDoc(collection(db, "whyChooseAcorn"), {
-    //       section1Headline,
-    //       section1Subtext,
-    //       section2Headline,
-    //       section2Subtext
-    //     });
-    //     alert('Why Choose Acorn saved!');
-    //   };
-    // }
+    // Section 1 Image Upload
+    const section1UploadBtn = document.getElementById('section1upload');
+    if (section1UploadBtn) {
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = 'image/*';
+      fileInput.style.display = 'none';
+      document.body.appendChild(fileInput);
+
+      section1UploadBtn.addEventListener('click', () => {
+        fileInput.click();
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          section1ImageFile = file;
+          updateSectionUploadUI('section1uploaddrag', file.name, section1UploadBtn);
+        }
+      });
+    }
+
+    const section1UploadDrag = document.getElementById('section1uploaddrag');
+    if (section1UploadDrag) {
+      section1UploadDrag.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        section1UploadDrag.style.border = '2px dashed #4CAF50';
+        section1UploadDrag.style.background = '#f0fff0';
+      });
+
+      section1UploadDrag.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        section1UploadDrag.style.border = '';
+        section1UploadDrag.style.background = '';
+      });
+
+      section1UploadDrag.addEventListener('drop', (e) => {
+        e.preventDefault();
+        section1UploadDrag.style.border = '';
+        section1UploadDrag.style.background = '';
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+          section1ImageFile = file;
+          updateSectionUploadUI('section1uploaddrag', file.name, section1UploadBtn);
+        } else {
+          alert('Please drop a valid image file.');
+        }
+      });
+    }
+
+    // Section 2 Image Upload
+    const section2UploadBtn = document.getElementById('section2upload');
+    if (section2UploadBtn) {
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = 'image/*';
+      fileInput.style.display = 'none';
+      document.body.appendChild(fileInput);
+
+      section2UploadBtn.addEventListener('click', () => {
+        fileInput.click();
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          section2ImageFile = file;
+          updateSectionUploadUI('section2uploaddrag', file.name, section2UploadBtn);
+        }
+      });
+    }
+
+    const section2UploadDrag = document.getElementById('section2uploaddrag');
+    if (section2UploadDrag) {
+      section2UploadDrag.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        section2UploadDrag.style.border = '2px dashed #4CAF50';
+        section2UploadDrag.style.background = '#f0fff0';
+      });
+
+      section2UploadDrag.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        section2UploadDrag.style.border = '';
+        section2UploadDrag.style.background = '';
+      });
+
+      section2UploadDrag.addEventListener('drop', (e) => {
+        e.preventDefault();
+        section2UploadDrag.style.border = '';
+        section2UploadDrag.style.background = '';
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+          section2ImageFile = file;
+          updateSectionUploadUI('section2uploaddrag', file.name, section2UploadBtn);
+        } else {
+          alert('Please drop a valid image file.');
+        }
+      });
+    }
+
+    function updateSectionUploadUI(dragId, filename, uploadBtn) {
+      const dragDiv = document.getElementById(dragId);
+      if (dragDiv) {
+        dragDiv.innerHTML = '';
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'text-gray-700 text-base mb-2';
+        nameDiv.textContent = filename;
+        dragDiv.appendChild(nameDiv);
+        const selectBtn = document.createElement('button');
+        selectBtn.type = 'button';
+        selectBtn.className = 'mt-2 px-3 py-1 bg-white border border-gray-300 rounded text-[#21C97B] text-sm font-medium shadow';
+        selectBtn.textContent = 'Select another file';
+        selectBtn.onclick = function() {
+          if (uploadBtn) uploadBtn.click();
+        };
+        dragDiv.appendChild(selectBtn);
+      }
+    }
+
+    const whyForm = document.getElementById('whychooseacornform');
+    if (whyForm) {
+      whyForm.onsubmit = async function(e) {
+        e.preventDefault();
+        const section1Headline = document.getElementById('section1-headline').value.trim();
+        const section1Subtext = document.getElementById('section1-subtext').value.trim();
+        const section2Headline = document.getElementById('section2-headline').value.trim();
+        const section2Subtext = document.getElementById('section2-subtext').value.trim();
+
+        if (!section1Headline || !section1Subtext || !section2Headline || !section2Subtext || !section1ImageFile || !section2ImageFile) {
+          alert('Please fill in all fields and select images.');
+          return;
+        }
+
+        // Loader
+        const loader = document.createElement('div');
+        loader.className = 'fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-30 z-50';
+        loader.innerHTML = '<div class="bg-white rounded-lg px-6 py-4 shadow text-lg font-semibold flex items-center"><svg class="animate-spin mr-2 h-6 w-6 text-[#21C97B]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>Saving...</div>';
+        document.body.appendChild(loader);
+
+        // Upload images
+        let section1ImageUrl = '';
+        let section2ImageUrl = '';
+        if (section1ImageFile) {
+          const storageRef1 = ref(storage, 'whyChooseAcorn/section1_' + Date.now() + '_' + section1ImageFile.name);
+          await uploadBytes(storageRef1, section1ImageFile);
+          section1ImageUrl = await getDownloadURL(storageRef1);
+        }
+        if (section2ImageFile) {
+          const storageRef2 = ref(storage, 'whyChooseAcorn/section2_' + Date.now() + '_' + section2ImageFile.name);
+          await uploadBytes(storageRef2, section2ImageFile);
+          section2ImageUrl = await getDownloadURL(storageRef2);
+        }
+
+        // Update or create the only doc in whyChooseAcorn
+        const whySnap = await getDocs(collection(db, "whyChooseAcorn"));
+        let docId;
+        if (!whySnap.empty) {
+          docId = whySnap.docs[0].id;
+        } else {
+          docId = "main";
+        }
+        await setDoc(doc(db, "whyChooseAcorn", docId), {
+          section1Headline,
+          section1Subtext,
+          section1ImageUrl,
+          section2Headline,
+          section2Subtext,
+          section2ImageUrl
+        });
+
+        document.body.removeChild(loader);
+        alert('Why Choose Acorn saved!');
+      };
+    }
 
     // Testimonials Management Section
-    const testimonialForm = document.querySelectorAll('form')[4];
+    const testimonialForm = document.getElementById('testimonialform')[4];
     if (testimonialForm) {
       testimonialForm.onsubmit = async function(e) {
         e.preventDefault();
-        const text = document.getElementById('testimonial-text').value;
-        const authorName = document.getElementById('author-name').value;
-        const authorTitle = document.getElementById('author-title').value;
-        const monthlyRevenue = document.getElementById('monthly-revenue').value;
+        const text = document.getElementById('testimonial-text').value.trim();
+        const authorName = document.getElementById('author-name').value.trim();
+        const authorTitle = document.getElementById('author-title').value.trim();
+        const monthlyRevenue = document.getElementById('monthly-revenue').value.trim();
+        if (!text || !authorName || !authorTitle || !monthlyRevenue) {
+          alert('Please fill in all fields.');
+          return;
+        }
+        const loader = document.createElement('div');
+        loader.className = 'fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-30 z-50';
+        loader.innerHTML = '<div class="bg-white rounded-lg px-6 py-4 shadow text-lg font-semibold flex items-center"><svg class="animate-spin mr-2 h-6 w-6 text-[#21C97B]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>Saving...'</div>';
+        document.body.appendChild(loader);
         await addDoc(collection(db, "testimonials"), {
           text,
           authorName,
           authorTitle,
           monthlyRevenue
         });
+        document.body.removeChild(loader);
         alert('Testimonial saved!');
-      };
-    }
-
-    // FAQ Management Section
-    const faqForm = document.querySelectorAll('form')[5];
-    if (faqForm) {
-      faqForm.onsubmit = async function(e) {
-        e.preventDefault();
-        const question = document.getElementById('faq-question').value;
-        const answer = document.getElementById('faq-answer').value;
-        await addDoc(collection(db, "faqs"), {
-          question,
-          answer
-        });
-        alert('FAQ saved!');
       };
     }
   });

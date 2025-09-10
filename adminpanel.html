@@ -90,6 +90,9 @@
               <label class="block text-gray-700 font-medium mb-2 text-sm" for="social-subtext">Subtext</label>
               <textarea id="social-subtext" rows="2" class="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#21C97B]">From overwhelmed to confident Amazon brand owner — with hands-on mentorship or done-for-you execution.</textarea>
             </div>
+            <div class="flex justify-end mt-4">
+                <button type="submit" class="bg-[#21C97B] text-white rounded-full px-8 py-2 font-semibold text-lg shadow hover:bg-[#1ea86a] transition">Save</button>
+              </div>
           </form>
         </div>
         <!-- Packages Section -->
@@ -177,7 +180,7 @@
           <div class="mb-2">
             <span class="font-semibold text-lg">Why Choose Acorn</span>
           </div>
-          <form>
+          <form id="whychooseacornform">
             <div class="mb-4">
               <label class="block text-gray-700 font-medium mb-2 text-sm" for="section1-headline">Section 1 Headline</label>
               <input id="section1-headline" type="text" value="Rio's Journey: From ICU to 7-Figures" class="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#21C97B]" />
@@ -195,7 +198,7 @@
                       <path d="M12 16v-4m0 0V8m0 4h4m-4 0H8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
                       <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" fill="none"/>
                     </svg>
-                  </div>
+                  </div id="section1upload">
                   <span class="text-gray-500 text-sm">Drag your file(s) to start uploading</span>
                   <span class="text-gray-400 text-xs mt-1">or</span>
                   <button type="button" class="mt-2 px-3 py-1 bg-white border border-gray-300 rounded text-[#21C97B] text-sm font-medium shadow">Browse files</button>
@@ -218,7 +221,7 @@
                       <path d="M12 16v-4m0 0V8m0 4h4m-4 0H8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
                       <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" fill="none"/>
                     </svg>
-                  </div>
+                  </div id="section2upload">
                   <span class="text-gray-500 text-sm">Drag your file(s) to start uploading</span>
                   <span class="text-gray-400 text-xs mt-1">or</span>
                   <button type="button" class="mt-2 px-3 py-1 bg-white border border-gray-300 rounded text-[#21C97B] text-sm font-medium shadow">Browse files</button>
@@ -235,7 +238,7 @@
           <div class="mb-4">
             <span class="font-semibold text-lg">Testimonials Management</span>
           </div>
-          <form>
+          <form id="testimonialform">
             <div class="mb-4">
               <label class="block text-gray-700 font-medium mb-2 text-sm" for="testimonial-text">Testimonial Text</label>
               <textarea id="testimonial-text" rows="3" placeholder="Enter Testimonial..." class="w-full rounded-xl border border-gray-300 px-4 py-4 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#21C97B]">Enter Testimonial....</textarea>
