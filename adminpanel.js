@@ -430,8 +430,102 @@
       };
     }
 
-    // Testimonials Management Section
-    const testimonialForm = document.getElementById('testimonialform')[4];
+    // Testimonials Management Section - Video Upload
+    let testimonialVideoFile = null;
+    const testimonialVideoUploadBtn = document.getElementById('videouploadbtn');
+    if (testimonialVideoUploadBtn) {
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = 'video/*';
+      fileInput.style.display = 'none';
+      document.body.appendChild(fileInput);
+
+      testimonialVideoUploadBtn.addEventListener('click', () => {
+        fileInput.click();
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          testimonialVideoFile = file;
+          updateTestimonialVideoUploadUI('videouploaddrag', file.name, testimonialVideoUploadBtn);
+        }
+      });
+    }
+
+    const testimonialVideoUploadDrag = document.getElementById('videouploaddrag');
+    if (testimonialVideoUploadDrag) {
+      testimonialVideoUploadDrag.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        testimonialVideoUploadDrag.style.border = '2px dashed #4CAF50';
+        testimonialVideoUploadDrag.style.background = '#f0fff0';
+      });
+
+      testimonialVideoUploadDrag.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        testimonialVideoUploadDrag.style.border = '';
+        testimonialVideoUploadDrag.style.background = '';
+      });
+
+      testimonialVideoUploadDrag.addEventListener('drop', (e) => {
+        e.preventDefault();
+        testimonialVideoUploadDrag.style.border = '';
+        testimonialVideoUploadDrag.style.background = '';
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('video/')) {
+          testimonialVideoFile = file;
+          updateTestimonialVideoUploadUI('videouploaddrag', file.name, testimonialVideoUploadBtn);
+        } else {
+          alert('Please drop a valid video file.');
+        }
+      });
+    }
+
+    function updateTestimonialVideoUploadUI(dragId, filename, uploadBtn) {
+      const dragDiv = document.getElementById(dragId);
+      if (dragDiv) {
+        dragDiv.innerHTML = '';
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'text-gray-700 text-base mb-2';
+        nameDiv.textContent = filename;
+        dragDiv.appendChild(nameDiv);
+        const selectBtn = document.createElement('button');
+        selectBtn.type = 'button';
+        selectBtn.className = 'mt-2 px-3 py-1 bg-white border border-gray-300 rounded text-[#21C97B] text-sm font-medium shadow';
+        selectBtn.textContent = 'Select another file';
+        selectBtn.onclick = function() {
+          if (uploadBtn) uploadBtn.click();
+        };
+        dragDiv.appendChild(selectBtn);
+      }
+    }
+
+    // Testimonials Management Section - Interactive Stars
+    let testimonialRating = 5;
+    const starContainer = document.getElementById('starcontainer');
+    if (starContainer) {
+      starContainer.innerHTML = '';
+      for (let i = 0; i < 5; i++) {
+        const star = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        star.setAttribute('width', '28');
+        star.setAttribute('height', '28');
+        star.setAttribute('viewBox', '0 0 20 20');
+        star.setAttribute('fill', 'currentColor');
+        star.classList.add('cursor-pointer', i < testimonialRating ? 'text-[#FFC107]' : 'text-gray-300');
+        star.style.transition = 'color 0.2s';
+        star.innerHTML = '<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.966a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.921-.755 1.688-1.54 1.118l-3.38-2.455a1 1 0 00-1.175 0l-3.38 2.455c-.784.57-1.838-.197-1.539-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.049 9.393c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.966z"/>';
+        star.addEventListener('click', function() {
+          testimonialRating = i + 1;
+          Array.from(starContainer.children).forEach((s, idx) => {
+            s.classList.toggle('text-[#FFC107]', idx < testimonialRating);
+            s.classList.toggle('text-gray-300', idx >= testimonialRating);
+          });
+        });
+        starContainer.appendChild(star);
+      }
+    }
+
+    const testimonialForm = document.getElementById('testimonialform');
     if (testimonialForm) {
       testimonialForm.onsubmit = async function(e) {
         e.preventDefault();
@@ -439,23 +533,166 @@
         const authorName = document.getElementById('author-name').value.trim();
         const authorTitle = document.getElementById('author-title').value.trim();
         const monthlyRevenue = document.getElementById('monthly-revenue').value.trim();
-        if (!text || !authorName || !authorTitle || !monthlyRevenue) {
-          alert('Please fill in all fields.');
+        if (!text || !authorName || !authorTitle || !monthlyRevenue || !testimonialRating || !testimonialVideoFile) {
+          alert('Please fill in all fields, select a rating, and upload a video.');
           return;
         }
         const loader = document.createElement('div');
         loader.className = 'fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-30 z-50';
-        loader.innerHTML = '<div class="bg-white rounded-lg px-6 py-4 shadow text-lg font-semibold flex items-center"><svg class="animate-spin mr-2 h-6 w-6 text-[#21C97B]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>Saving...'</div>';
+        loader.innerHTML = '<div class="bg-white rounded-lg px-6 py-4 shadow text-lg font-semibold flex items-center"><svg class="animate-spin mr-2 h-6 w-6 text-[#21C97B]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>Saving...</div>';
         document.body.appendChild(loader);
+        let videoUrl = '';
+        if (testimonialVideoFile) {
+          const storageRef = ref(storage, 'testimonials/videos/' + Date.now() + '_' + testimonialVideoFile.name);
+          await uploadBytes(storageRef, testimonialVideoFile);
+          videoUrl = await getDownloadURL(storageRef);
+        }
         await addDoc(collection(db, "testimonials"), {
           text,
           authorName,
           authorTitle,
-          monthlyRevenue
+          monthlyRevenue,
+          rating: testimonialRating,
+          videoUrl
         });
         document.body.removeChild(loader);
         alert('Testimonial saved!');
       };
     }
+
+    // Modal helpers
+    function showEditModal(testimonialId, data, onSave) {
+      let modal = document.getElementById('edit-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'edit-modal';
+        modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40';
+        modal.innerHTML = `
+          <div class="bg-white rounded-xl p-6 shadow-lg w-full max-w-md">
+            <h2 class="font-bold text-lg mb-4">Edit Testimonial</h2>
+            <label class="block text-gray-700 mb-2">Text</label>
+            <textarea id="edit-text" class="w-full rounded border border-gray-300 px-3 py-2 mb-3">${data.text || ''}</textarea>
+            <label class="block text-gray-700 mb-2">Author Name</label>
+            <input id="edit-author" type="text" class="w-full rounded border border-gray-300 px-3 py-2 mb-3" value="${data.authorName || ''}" />
+            <label class="block text-gray-700 mb-2">Author Title</label>
+            <input id="edit-title" type="text" class="w-full rounded border border-gray-300 px-3 py-2 mb-3" value="${data.authorTitle || ''}" />
+            <label class="block text-gray-700 mb-2">Monthly Revenue</label>
+            <input id="edit-revenue" type="text" class="w-full rounded border border-gray-300 px-3 py-2 mb-3" value="${data.monthlyRevenue || ''}" />
+            <label class="block text-gray-700 mb-2">Rating</label>
+            <input id="edit-rating" type="number" min="1" max="5" class="w-16 rounded border border-gray-300 px-2 py-1 mb-3" value="${data.rating || 5}" />
+            <div class="flex justify-end gap-2 mt-4">
+              <button id="edit-cancel" class="px-4 py-2 rounded bg-gray-200 text-gray-700">Cancel</button>
+              <button id="edit-save" class="px-4 py-2 rounded bg-[#21C97B] text-white font-semibold">Save</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      } else {
+        modal.style.display = '';
+      }
+      document.getElementById('edit-cancel').onclick = () => {
+        modal.style.display = 'none';
+      };
+      document.getElementById('edit-save').onclick = async () => {
+        const newData = {
+          text: document.getElementById('edit-text').value,
+          authorName: document.getElementById('edit-author').value,
+          authorTitle: document.getElementById('edit-title').value,
+          monthlyRevenue: document.getElementById('edit-revenue').value,
+          rating: parseInt(document.getElementById('edit-rating').value)
+        };
+        await onSave(newData);
+        modal.style.display = 'none';
+      };
+    }
+    function showDeleteModal(testimonialId, onDelete) {
+      let modal = document.getElementById('delete-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'delete-modal';
+        modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40';
+        modal.innerHTML = `
+          <div class="bg-white rounded-xl p-6 shadow-lg w-full max-w-sm text-center">
+            <h2 class="font-bold text-lg mb-4">Delete Testimonial?</h2>
+            <p class="mb-6 text-gray-700">Are you sure you want to delete this testimonial?</p>
+            <div class="flex justify-center gap-2">
+              <button id="delete-cancel" class="px-4 py-2 rounded bg-gray-200 text-gray-700">Cancel</button>
+              <button id="delete-confirm" class="px-4 py-2 rounded bg-red-500 text-white font-semibold">Delete</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      } else {
+        modal.style.display = '';
+      }
+      document.getElementById('delete-cancel').onclick = () => {
+        modal.style.display = 'none';
+      };
+      document.getElementById('delete-confirm').onclick = async () => {
+        await onDelete();
+        modal.style.display = 'none';
+      };
+    }
+    // Fetch and display current testimonials
+    async function renderTestimonials() {
+      const testimonialsList = document.getElementById('testimonials-list');
+      if (!testimonialsList) return;
+      testimonialsList.innerHTML = '';
+      const snap = await getDocs(collection(db, 'testimonials'));
+      snap.forEach(docSnap => {
+        const data = docSnap.data();
+        const testimonialId = docSnap.id;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'flex items-start gap-2';
+        const card = document.createElement('div');
+        card.className = 'rounded-xl border border-gray-300 p-4 flex flex-col gap-2 bg-white flex-1';
+        card.innerHTML = `
+          <div class="text-gray-800 text-base mb-2">"${data.text}"</div>
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="font-bold text-sm text-gray-900">${data.authorName},</span>
+              <span class="text-xs text-gray-500 ml-1">${data.authorTitle}</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="flex items-center space-x-1">
+                ${[...Array(5)].map((_, i) => `<svg class="w-5 h-5 ${i < (data.rating || 0) ? 'text-[#FFC107]' : 'text-gray-300'}" fill="currentColor" viewBox="0 0 20 20"><path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.966a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.921-.755 1.688-1.54 1.118l-3.38-2.455a1 1 0 00-1.175 0l-3.38 2.455c-.784.57-1.838-.197-1.539-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.049 9.393c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.966z'/></svg>`).join('')}
+              </div>
+              <span class="bg-[#21C97B] text-white text-xs font-semibold px-3 py-1 rounded-full ml-2">${data.monthlyRevenue || ''}</span>
+            </div>
+          </div>
+        `;
+        const btns = document.createElement('div');
+        btns.className = 'flex flex-col gap-2 items-center justify-center';
+        const editBtn = document.createElement('button');
+        editBtn.type = 'button';
+        editBtn.className = 'w-10 h-10 flex items-center justify-center rounded-lg border border-gray-300 bg-white hover:bg-gray-100';
+        editBtn.title = 'Edit';
+        editBtn.innerHTML = `<svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9" stroke="currentColor" stroke-linecap="round"/><path d="M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4 12.5-12.5z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        editBtn.onclick = () => {
+          showEditModal(testimonialId, data, async (newData) => {
+            await setDoc(doc(db, 'testimonials', testimonialId), newData, { merge: true });
+            renderTestimonials();
+          });
+        };
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'w-10 h-10 flex items-center justify-center rounded-lg border border-gray-300 bg-white hover:bg-red-100';
+        deleteBtn.title = 'Delete';
+        deleteBtn.innerHTML = `<svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-linecap="round"/><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-linecap="round"/></svg>`;
+        deleteBtn.onclick = () => {
+          showDeleteModal(testimonialId, async () => {
+            await setDoc(doc(db, 'testimonials', testimonialId), {}, { merge: false });
+            await doc(db, 'testimonials', testimonialId).delete();
+            renderTestimonials();
+          });
+        };
+        btns.appendChild(editBtn);
+        btns.appendChild(deleteBtn);
+        wrapper.appendChild(card);
+        wrapper.appendChild(btns);
+        testimonialsList.appendChild(wrapper);
+      });
+    }
+    renderTestimonials();
   });
 
