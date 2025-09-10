@@ -240,14 +240,14 @@
       package1tab.addEventListener('click', function() {
         package1form.style.display = '';
         package2form.style.display = 'none';
-        package1tab.className = 'font-bold text-base px-4 py-1 rounded-full bg-[#21C97B] text-white';
-        package2tab.className = 'text-gray-500 text-base px-4 py-1 rounded-full bg-gray-100';
+        package1tab.className = 'font-bold text-base px-4 py-1';
+        package2tab.className = 'text-base px-4 py-1';
       });
       package2tab.addEventListener('click', function() {
         package1form.style.display = 'none';
         package2form.style.display = '';
-        package2tab.className = 'font-bold text-base px-4 py-1 rounded-full bg-[#21C97B] text-white';
-        package1tab.className = 'text-gray-500 text-base px-4 py-1 rounded-full bg-gray-100';
+        package2tab.className = 'font-bold text-base px-4 py-1';
+        package1tab.className = ' text-base px-4 py-1 ';
       });
     }
 //--------------------------------------------------------------------//
