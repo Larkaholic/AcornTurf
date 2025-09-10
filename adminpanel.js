@@ -694,5 +694,134 @@
       });
     }
     renderTestimonials();
+    // FAQ Management Section
+    async function renderFAQs() {
+      const faqsList = document.getElementById('faqs-list');
+      if (!faqsList) return;
+      faqsList.innerHTML = '';
+      const snap = await getDocs(collection(db, 'faqs'));
+      snap.forEach(docSnap => {
+        const data = docSnap.data();
+        const faqId = docSnap.id;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'flex items-start gap-2';
+        const card = document.createElement('div');
+        card.className = 'rounded-xl border border-gray-300 p-4 flex flex-col gap-2 bg-white flex-1';
+        card.innerHTML = `
+          <div class="font-semibold text-base mb-1">${data.question}</div>
+          <div class="text-gray-700 text-sm">${data.answer}</div>
+        `;
+        const btns = document.createElement('div');
+        btns.className = 'flex flex-col gap-2 items-center justify-center';
+        const editBtn = document.createElement('button');
+        editBtn.type = 'button';
+        editBtn.className = 'w-10 h-10 flex items-center justify-center rounded-lg border border-gray-300 bg-white hover:bg-gray-100';
+        editBtn.title = 'Edit';
+        editBtn.innerHTML = `<svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9" stroke="currentColor" stroke-linecap="round"/><path d="M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4 12.5-12.5z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        editBtn.onclick = () => {
+          showFAQEditModal(faqId, data, async (newData) => {
+            await setDoc(doc(db, 'faqs', faqId), newData, { merge: true });
+            renderFAQs();
+          });
+        };
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'w-10 h-10 flex items-center justify-center rounded-lg border border-gray-300 bg-white hover:bg-red-100';
+        deleteBtn.title = 'Delete';
+        deleteBtn.innerHTML = `<svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-linecap="round"/><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-linecap="round"/></svg>`;
+        deleteBtn.onclick = () => {
+          showFAQDeleteModal(faqId, async () => {
+            await setDoc(doc(db, 'faqs', faqId), {}, { merge: false });
+            await doc(db, 'faqs', faqId).delete();
+            renderFAQs();
+          });
+        };
+        btns.appendChild(editBtn);
+        btns.appendChild(deleteBtn);
+        wrapper.appendChild(card);
+        wrapper.appendChild(btns);
+        faqsList.appendChild(wrapper);
+      });
+    }
+    function showFAQEditModal(faqId, data, onSave) {
+      let modal = document.getElementById('faq-edit-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'faq-edit-modal';
+        modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40';
+        modal.innerHTML = `
+          <div class="bg-white rounded-xl p-6 shadow-lg w-full max-w-md">
+            <h2 class="font-bold text-lg mb-4">Edit FAQ</h2>
+            <label class="block text-gray-700 mb-2">Question</label>
+            <input id="faq-edit-question" type="text" class="w-full rounded border border-gray-300 px-3 py-2 mb-3" value="${data.question || ''}" />
+            <label class="block text-gray-700 mb-2">Answer</label>
+            <textarea id="faq-edit-answer" class="w-full rounded border border-gray-300 px-3 py-2 mb-3">${data.answer || ''}</textarea>
+            <div class="flex justify-end gap-2 mt-4">
+              <button id="faq-edit-cancel" class="px-4 py-2 rounded bg-gray-200 text-gray-700">Cancel</button>
+              <button id="faq-edit-save" class="px-4 py-2 rounded bg-[#21C97B] text-white font-semibold">Save</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      } else {
+        modal.style.display = '';
+      }
+      document.getElementById('faq-edit-cancel').onclick = () => {
+        modal.style.display = 'none';
+      };
+      document.getElementById('faq-edit-save').onclick = async () => {
+        const newData = {
+          question: document.getElementById('faq-edit-question').value,
+          answer: document.getElementById('faq-edit-answer').value
+        };
+        await onSave(newData);
+        modal.style.display = 'none';
+      };
+    }
+    function showFAQDeleteModal(faqId, onDelete) {
+      let modal = document.getElementById('faq-delete-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'faq-delete-modal';
+        modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40';
+        modal.innerHTML = `
+          <div class="bg-white rounded-xl p-6 shadow-lg w-full max-w-sm text-center">
+            <h2 class="font-bold text-lg mb-4">Delete FAQ?</h2>
+            <p class="mb-6 text-gray-700">Are you sure you want to delete this FAQ?</p>
+            <div class="flex justify-center gap-2">
+              <button id="faq-delete-cancel" class="px-4 py-2 rounded bg-gray-200 text-gray-700">Cancel</button>
+              <button id="faq-delete-confirm" class="px-4 py-2 rounded bg-red-500 text-white font-semibold">Delete</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      } else {
+        modal.style.display = '';
+      }
+      document.getElementById('faq-delete-cancel').onclick = () => {
+        modal.style.display = 'none';
+      };
+      document.getElementById('faq-delete-confirm').onclick = async () => {
+        await onDelete();
+        modal.style.display = 'none';
+      };
+    }
+    // Add FAQ
+    const addFaqBtn = document.querySelector('button[faq-add-btn]');
+    if (addFaqBtn) {
+      addFaqBtn.onclick = async () => {
+        const question = document.getElementById('faq-question').value.trim();
+        const answer = document.getElementById('faq-answer').value.trim();
+        if (!question || !answer) {
+          alert('Please enter both question and answer.');
+          return;
+        }
+        await addDoc(collection(db, 'faqs'), { question, answer });
+        document.getElementById('faq-question').value = '';
+        document.getElementById('faq-answer').value = '';
+        renderFAQs();
+      };
+    }
+    renderFAQs();
   });
 

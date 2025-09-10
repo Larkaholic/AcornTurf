@@ -311,33 +311,12 @@
               <textarea id="faq-answer" rows="3" placeholder="Enter Answer..." class="w-full rounded-xl border border-gray-300 px-4 py-4 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#21C97B]"></textarea>
             </div>
             <div class="flex justify-end mb-6">
-              <button type="button" class="bg-[#21C97B] text-white rounded-full px-6 py-2 font-semibold text-base shadow hover:bg-[#1ea86a] transition">Add FAQ</button>
+              <button type="button" id="faq-add-btn" class="bg-[#21C97B] text-white rounded-full px-6 py-2 font-semibold text-base shadow hover:bg-[#1ea86a] transition">Add FAQ</button>
             </div>
             <div class="mb-4">
               <span class="font-semibold text-lg">Current FAQs</span>
             </div>
-            <div class="flex items-start gap-4">
-              <div class="flex-1">
-                <div class="rounded-xl border border-gray-300 p-4">
-                  <div class="font-semibold text-base mb-1">Is the investment worth it compared to trying on my own?</div>
-                  <div class="text-gray-700 text-sm">Absolutely. Most people spend 2-3 years and $20k+ in failed attempts before finding success. Our program compresses that timeline to 90 days with proven systems and direct mentorship, saving you both time and money while dramatically increasing your success rate.</div>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-center justify-center">
-                <button type="button" class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-300 bg-white hover:bg-gray-100">
-                  <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M12 20h9" stroke="currentColor" stroke-linecap="round"/>
-                    <path d="M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4 12.5-12.5z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-                <button type="button" class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-300 bg-white hover:bg-red-100">
-                  <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-linecap="round"/>
-                    <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-linecap="round"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
+            <div id="faqs-list" class="flex flex-col gap-4"></div>
             <div class="flex justify-end mt-4">
               <button type="submit" class="bg-[#21C97B] text-white rounded-full px-8 py-2 font-semibold text-lg shadow hover:bg-[#1ea86a] transition">Save</button>
             </div>
