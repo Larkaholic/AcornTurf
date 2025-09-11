@@ -823,5 +823,51 @@
       };
     }
     renderFAQs();
+
+    // Add X button to each feature input in package1form and package2form
+function addFeatureClearButtons(formId, featureInputSelector) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  const featureInputs = form.querySelectorAll(featureInputSelector);
+  featureInputs.forEach((input, idx) => {
+    // Remove previous wrapper if exists
+    if (input.parentElement.classList.contains('flex')) return;
+    // Create wrapper
+    const wrapper = document.createElement('div');
+    wrapper.className = 'flex items-center gap-2 mb-4';
+    input.classList.add('flex-1');
+    input.parentNode.insertBefore(wrapper, input);
+    wrapper.appendChild(input);
+    // Create X button
+    const xBtn = document.createElement('button');
+    xBtn.type = 'button';
+    xBtn.className = 'w-12 h-12 flex items-center justify-center rounded-xl border border-gray-200 bg-white hover:bg-red-50';
+    xBtn.innerHTML = `<svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-linecap="round"/><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-linecap="round"/></svg>`;
+    xBtn.onclick = () => {
+      input.value = '';
+    };
+    wrapper.appendChild(xBtn);
+  });
+}
+
+// Call after DOM is ready and forms are rendered
+addFeatureClearButtons('package1form', 'input[type="text"].feature-input');
+addFeatureClearButtons('package2form', 'input[type="text"].feature-input');
+
+// Add logic to clear feature input when X button is clicked
+function setupFeatureClearButtons(formId) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  form.querySelectorAll('.feature-clear-btn').forEach(btn => {
+    btn.onclick = function() {
+      const input = btn.previousElementSibling;
+      if (input && input.tagName === 'INPUT') {
+        input.value = '';
+      }
+    };
+  });
+}
+setupFeatureClearButtons('package1form');
+setupFeatureClearButtons('package2form');
   });
 
