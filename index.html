@@ -7,12 +7,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
+  <!-- <style>
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.active { opacity: 1; transform: none; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  </style>
+  </style> -->
 </head>
 <body class="max-w-full overflow-x-hidden">
     <nav class="relative flex items-center justify-between px-4 md:px-10 py-4">
@@ -759,15 +759,15 @@
           <p class="mt-1 text-sm text-slate-500">Additional Value to Accelerate your Success</p>
         </div>
 
-        <div class="flex flex-col mt-6  gap-6">
+        <div class="flex flex-col mt-6 gap-6">
           <div class="bg-white border-2 border-emerald-300 rounded-[18px] rounded-bl-[72px] p-6 flex flex-col items-center justify-center min-h-[140px]">
-          <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-sm">
-            <!-- play icon -->
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 3v18l15-9L5 3z" fill="currentColor" />
-            </svg>
-          </div>
-          <div class="mt-4 text-sm font-medium text-slate-800 text-center">Video testimonials library</div>
+            <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-sm">
+              <!-- play icon -->
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 3v18l15-9L5 3z" fill="currentColor" />
+              </svg>
+            </div>
+            <div class="mt-4 text-sm font-medium text-slate-800 text-center">Video testimonials library</div>
           </div>
 
           <div class="bg-white border-2 border-emerald-300 rounded-[18px] rounded-bl-[72px] p-6 flex flex-col items-center justify-center min-h-[140px]">
@@ -809,35 +809,37 @@
         </div>
 
         <div class="mt-6 grid grid-cols-3 gap-6">
-          <div class="bg-white border-2 border-emerald-300 rounded-[18px] rounded-bl-[72px] p-6 flex flex-col items-center justify-center min-h-[140px]">
-          <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-sm">
-            <!-- play icon -->
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 3v18l15-9L5 3z" fill="currentColor" />
-            </svg>
-          </div>
-          <div class="mt-4 text-sm font-medium text-slate-800 text-center">Video testimonials library</div>
-          </div>
-
-          <div class="bg-white border-2 border-emerald-300 rounded-[18px] rounded-bl-[72px] p-6 flex flex-col items-center justify-center min-h-[140px]">
-          <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-sm">
-            <!-- network icon -->
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 12a3 3 0 100-6 3 3 0 000 6zm6 8v-1a3 3 0 00-3-3h-6a3 3 0 00-3 3v1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="currentColor" />
-            <circle cx="17" cy="7" r="1.6" fill="white" />
-            </svg>
-          </div>
-          <div class="mt-4 text-sm font-medium text-slate-800 text-center">Proven service provider network</div>
+          <div class="bg-white border-2 border-emerald-300 rounded-[18px] rounded-bl-[72px] p-6 flex flex-col items-center justify-center min-h-[140px] group transition-colors duration-200 hover:bg-emerald-500">
+            <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-sm transition-colors duration-200 group-hover:bg-white group-hover:text-emerald-500">
+              <!-- play icon -->
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 3v18l15-9L5 3z" />
+              </svg>
+            </div>
+            <div class="mt-4 text-sm font-medium text-slate-800 text-center transition-colors duration-200 group-hover:text-white">
+              Video testimonials library
+            </div>
           </div>
 
-          <div class="bg-white border-2 border-emerald-300 rounded-[18px] rounded-bl-[72px] p-6 flex flex-col items-center justify-center min-h-[140px]">
-          <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-sm">
-            <!-- chat icon -->
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" fill="currentColor" />
-            </svg>
+          <div class="bg-white border-2 border-emerald-300 rounded-[18px] rounded-bl-[72px] p-6 flex flex-col items-center justify-center min-h-[140px] group transition-colors duration-200 hover:bg-emerald-500">
+            <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-sm transition-colors duration-200 group-hover:bg-white group-hover:text-emerald-500">
+              <!-- network icon -->
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 12a3 3 0 100-6 3 3 0 000 6zm6 8v-1a3 3 0 00-3-3h-6a3 3 0 00-3 3v1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="currentColor" />
+              <circle cx="17" cy="7" r="1.6" fill="white" />
+              </svg>
+            </div>
+            <div class="mt-4 text-sm font-medium text-slate-800 text-center transition-colors duration-200 group-hover:text-white">Proven service provider network</div>
           </div>
-          <div class="mt-4 text-sm font-medium text-slate-800 text-center">Constant support (no fluff course material)</div>
+
+          <div class="bg-white border-2 border-emerald-300 rounded-[18px] rounded-bl-[72px] p-6 flex flex-col items-center justify-center min-h-[140px] group transition-colors duration-200 hover:bg-emerald-500">
+            <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-sm transition-colors duration-200 group-hover:bg-white group-hover:text-emerald-500">
+              <!-- chat icon -->
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" fill="currentColor" />
+              </svg>
+            </div>
+            <div class="mt-4 text-sm font-medium text-slate-800 text-center transition-colors duration-200 group-hover:text-white">Constant support (no fluff course material)</div>
           </div>
         </div>
         </div>
