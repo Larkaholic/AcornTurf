@@ -1238,105 +1238,127 @@
         </div>
 
   <!-- FAQ list -->
-  <div id="faqs-list" class="space-y-4">
-            <!-- Item 1 - open by default -->
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-                <div class="flex items-start justify-between p-6">
-                    <div class="pr-6">
-                        <h3 class="text-lg font-semibold text-slate-900">Is the investment worth it compared to trying on my own?</h3>
-                    </div>
+  <div id="faqs-list" class="space-y-4"></div>
 
-                    <!-- right icon (green check) -->
-                    <div class="flex-shrink-0 ml-4">
-                        <div class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center shadow">
-                            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
+        <!-- Dynamic FAQ renderer: listens to Firestore 'faqs' collection and renders items -->
+        <script type="module">
+          import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+          import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
-                <div class="px-6 pb-8 pt-0">
-                    <p class="text-sm text-slate-600 leading-relaxed">
-                        Absolutely. Most people spend 2–3 years and $20k+ in failed attempts before finding success. Our program compresses that timeline to 90 days with proven systems and direct mentorship, saving you both time and money while dramatically increasing your success rate.
-                    </p>
-                </div>
-            </div>
+          // Use a namespaced app to avoid conflicts with other modules
+          const firebaseConfigFaq = {
+            apiKey: "AIzaSyBGBimDkH4udFoX-xJ9knySaJdT400tYrc",
+            authDomain: "acornturf-70ddd.firebaseapp.com",
+            projectId: "acornturf-70ddd",
+            storageBucket: "acornturf-70ddd.firebasestorage.app",
+            messagingSenderId: "114396648312",
+            appId: "1:114396648312:web:f5ecd875c54eae5f256e8d",
+            measurementId: "G-RK524LV3RJ"
+          };
 
-            <!-- Item 2 (collapsed) -->
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-                <button class="w-full flex items-center justify-between p-6 text-left faq-toggle" aria-expanded="false">
-                    <span class="text-lg font-semibold text-slate-900">How much time do I need to commit each week?</span>
-                    <span class="flex items-center justify-center w-10 h-10 bg-slate-100 rounded-full">
-                        <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </span>
-                </button>
-                <div class="faq-content px-6 pb-6 hidden">
-                    <p class="text-sm text-slate-600">
-                        Our mentorship is designed to be flexible — most students spend 5–10 hours per week during the 90-day program. If you choose full-service, our team handles execution so your time commitment is minimal.
-                    </p>
-                </div>
-            </div>
+          // initialize a named app to avoid "already exists" errors
+          const appFaq = initializeApp(firebaseConfigFaq, 'faqApp');
+          const dbFaq = getFirestore(appFaq);
 
-            <!-- Item 3 (collapsed) -->
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-                <button class="w-full flex items-center justify-between p-6 text-left faq-toggle" aria-expanded="false">
-                    <span class="text-lg font-semibold text-slate-900">What if I don't succeed or my products don't sell?</span>
-                    <span class="flex items-center justify-center w-10 h-10 bg-slate-100 rounded-full">
-                        <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </span>
-                </button>
-                <div class="faq-content px-6 pb-6 hidden">
-                    <p class="text-sm text-slate-600">
-                        We help mitigate risk through product research, supplier vetting, and a launch strategy. If products underperform, we provide follow-up coaching and optimization strategies to improve performance.
-                    </p>
-                </div>
-            </div>
+          const faqsList = document.getElementById('faqs-list');
 
-            <!-- Item 4 (collapsed) -->
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-                <button class="w-full flex items-center justify-between p-6 text-left faq-toggle" aria-expanded="false">
-                    <span class="text-lg font-semibold text-slate-900">Do I need any prior Amazon or business experience?</span>
-                    <span class="flex items-center justify-center w-10 h-10 bg-slate-100 rounded-full">
-                        <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </span>
-                </button>
-                <div class="faq-content px-6 pb-6 hidden">
-                    <p class="text-sm text-slate-600">
-                        No prior experience required. Our mentorship walks you through every step — from product selection and compliance to listing creation and PPC — so beginners can launch confidently.
-                    </p>
-                </div>
-            </div>
-        </div>
+          function escapeHtml(s) {
+            return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+          }
 
-        <!-- Small JS to toggle FAQ items -->
-        <script>
-            (function () {
-                const toggles = document.querySelectorAll('#faq .faq-toggle');
-                toggles.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const expanded = btn.getAttribute('aria-expanded') === 'true';
-                        // close all first
-                        toggles.forEach(t => {
-                            t.setAttribute('aria-expanded', 'false');
-                            const content = t.parentElement.querySelector('.faq-content');
-                            if (content) content.classList.add('hidden');
-                        });
-                        // if we were closed, open this one
-                        if (!expanded) {
-                            btn.setAttribute('aria-expanded', 'true');
-                            const content = btn.parentElement.querySelector('.faq-content');
-                            if (content) content.classList.remove('hidden');
-                        }
-                    });
+          function renderSnapshot(snap) {
+            if (!faqsList) return;
+            faqsList.innerHTML = '';
+            if (!snap || snap.empty) {
+              const p = document.createElement('p');
+              p.className = 'text-center text-sm text-gray-500';
+              p.textContent = 'No FAQs yet. Add some from the admin panel.';
+              faqsList.appendChild(p);
+              return;
+            }
+
+            snap.docs.forEach((docSnap, idx) => {
+              const data = docSnap.data() || {};
+              const wrapper = document.createElement('div');
+              wrapper.className = 'bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden';
+
+              const header = document.createElement('div');
+              header.className = 'flex items-start justify-between p-6';
+
+              const left = document.createElement('div');
+              left.className = 'pr-6';
+              const q = document.createElement('h3');
+              q.className = 'text-lg font-semibold text-slate-900';
+              q.innerHTML = escapeHtml(data.question || 'Untitled question');
+              left.appendChild(q);
+
+              const right = document.createElement('div');
+              right.className = 'flex-shrink-0 ml-4';
+              const iconWrap = document.createElement('div');
+              iconWrap.className = 'w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center shadow';
+              iconWrap.innerHTML = '<svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
+              right.appendChild(iconWrap);
+
+              header.appendChild(left);
+              header.appendChild(right);
+              wrapper.appendChild(header);
+
+              const content = document.createElement('div');
+              content.className = 'px-6 pb-8 pt-0';
+              if (idx !== 0) content.classList.add('hidden');
+              const para = document.createElement('p');
+              para.className = 'text-sm text-slate-600 leading-relaxed';
+              para.innerHTML = escapeHtml(data.answer || '');
+              content.appendChild(para);
+              wrapper.appendChild(content);
+
+              // Replace header with a clickable button for collapsed items
+              if (idx !== 0) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'w-full flex items-center justify-between p-6 text-left faq-toggle';
+                btn.setAttribute('aria-expanded', 'false');
+                btn.innerHTML = '<span class="text-lg font-semibold text-slate-900">' + escapeHtml(data.question || '') + '</span>' +
+                                '<span class="flex items-center justify-center w-10 h-10 bg-slate-100 rounded-full">' +
+                                  '<svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                                    '<path d="M9 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />' +
+                                  '</svg>' +
+                                '</span>';
+                // swap header with button
+                wrapper.replaceChild(btn, header);
+                btn.addEventListener('click', () => {
+                  // close all
+                  document.querySelectorAll('#faqs-list .faq-content').forEach(c => c.classList.add('hidden'));
+                  document.querySelectorAll('#faqs-list .faq-toggle').forEach(t => t.setAttribute('aria-expanded', 'false'));
+                  // open this
+                  btn.setAttribute('aria-expanded', 'true');
+                  content.classList.remove('hidden');
                 });
-            })();
+              } else {
+                // first item: keep header but allow clicking to toggle
+                header.style.cursor = 'pointer';
+                header.addEventListener('click', () => {
+                  const expanded = !content.classList.contains('hidden');
+                  document.querySelectorAll('#faqs-list .faq-content').forEach(c => c.classList.add('hidden'));
+                  document.querySelectorAll('#faqs-list .faq-toggle').forEach(t => t.setAttribute('aria-expanded', 'false'));
+                  if (!expanded) {
+                    content.classList.remove('hidden');
+                  }
+                });
+              }
+
+              faqsList.appendChild(wrapper);
+            });
+          }
+
+          try {
+            onSnapshot(collection(dbFaq, 'faqs'), (snap) => {
+              console.debug('faqs snapshot fired, rendering', snap.size);
+              renderSnapshot(snap);
+            });
+          } catch (e) {
+            console.warn('Failed to listen for faqs', e);
+          }
         </script>
     </section>
 

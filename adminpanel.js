@@ -894,9 +894,9 @@
       };
     }
     // Add FAQ
-    const addFaqBtn = document.querySelector('button[faq-add-btn]');
+    const addFaqBtn = document.getElementById('faq-add-btn');
     if (addFaqBtn) {
-      addFaqBtn.onclick = async () => {
+      addFaqBtn.addEventListener('click', async () => {
         const question = document.getElementById('faq-question').value.trim();
         const answer = document.getElementById('faq-answer').value.trim();
         if (!question || !answer) {
@@ -907,7 +907,7 @@
         document.getElementById('faq-question').value = '';
         document.getElementById('faq-answer').value = '';
         renderFAQs();
-      };
+      });
     }
     renderFAQs();
 
