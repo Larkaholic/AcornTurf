@@ -21,28 +21,118 @@
 
       <!-- Desktop nav links -->
       <ul class="hidden md:flex space-x-8 text-lg font-medium text-black">
-        <li><a href="#" class="hover:text-green-700">Home</a></li>
-        <li><a href="#" class="hover:text-green-700">About</a></li>
-        <li><a href="#" class="hover:text-green-700">Programs</a></li>
-        <li><a href="#" class="hover:text-green-700">Success Stories</a></li>
+      <li><a href="#" class="hover:text-green-700">Home</a></li>
+      <li><a href="#" class="hover:text-green-700">About</a></li>
+      <li><a href="#" class="hover:text-green-700">Programs</a></li>
+      <li><a href="#" class="hover:text-green-700">Success Stories</a></li>
       </ul>
 
       <!-- Desktop CTA (right) -->
       <div class="hidden md:block">
-        <a href="#" class="bg-[#015648] text-white px-6 py-3 text-lg rounded-full font-semibold shadow hover:bg-green-700 transition">Book a Call</a>
+      <a href="#" class="bg-[#015648] text-white px-6 py-3 text-lg rounded-full font-semibold shadow hover:bg-green-700 transition">Book a Call</a>
       </div>
 
       <!-- Mobile controls: CTA beside hamburger (right) -->
       <div class="flex items-center md:hidden space-x-2">
-        <a href="#" class="bg-[#015648] text-white px-4 py-2 rounded-full text-sm font-semibold shadow">Book a Call</a>
+      <a href="#" class="bg-[#015648] text-white px-4 py-2 rounded-full text-sm font-semibold shadow">Book a Call</a>
 
-        <button class="ml-0 p-4 rounded-md text-[#015648]" aria-label="Open menu">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
+      <button id="mobileMenuButton" class="ml-0 p-4 rounded-md text-[#015648]" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
       </div>
     </nav>
+
+    <!-- Mobile sliding menu + overlay -->
+    <!-- Overlay -->
+    <div id="mobileOverlay" class="fixed inset-0 bg-black/50 hidden z-40" aria-hidden="true"></div>
+
+    <!-- Sliding panel (from right) -->
+    <aside id="mobileMenu" class="fixed inset-y-0 right-0 w-4/5 max-w-[340px] bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+      <div class="flex items-center justify-between px-4 py-4 border-b">
+      <div class="text-lg font-semibold text-[#015648]" id="mobile-menu-title">Menu</div>
+      <button id="mobileMenuClose" class="p-2 rounded-md text-gray-600" aria-label="Close menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      </div>
+
+      <nav class="px-6 py-6 space-y-6">
+      <ul class="flex flex-col space-y-4 text-lg font-medium">
+        <li><a href="#" class="block text-[#015648] hover:text-green-700">Home</a></li>
+        <li><a href="#" class="block text-[#015648] hover:text-green-700">About</a></li>
+        <li><a href="#" class="block text-[#015648] hover:text-green-700">Programs</a></li>
+        <li><a href="#" class="block text-[#015648] hover:text-green-700">Success Stories</a></li>
+      </ul>
+
+      <div class="pt-4">
+        <a href="#contact" class="block w-full text-center bg-[#015648] text-white px-4 py-3 rounded-full font-semibold shadow hover:bg-green-700 transition">Book a Call</a>
+      </div>
+      </nav>
+
+      <!-- Optional small footer inside menu -->
+      <div class="mt-auto px-6 py-4 border-t text-sm text-gray-500">
+      <div>© Acorn Turf LLC</div>
+      </div>
+    </aside>
+
+    <script>
+      (function () {
+      const btn = document.getElementById('mobileMenuButton');
+      const menu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('mobileOverlay');
+      const closeBtn = document.getElementById('mobileMenuClose');
+
+      if (!btn || !menu || !overlay) return;
+
+      function openMenu() {
+        menu.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+        // prevent body scroll while menu open
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        // focus first focusable element inside menu
+        setTimeout(() => {
+        const first = menu.querySelector('a, button, input, [tabindex]:not([tabindex="-1"])');
+        if (first) first.focus();
+        }, 200);
+      }
+
+      function closeMenu() {
+        menu.classList.add('translate-x-full');
+        overlay.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'false');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        btn.focus();
+      }
+
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        (expanded ? closeMenu : openMenu)();
+      });
+
+      closeBtn?.addEventListener('click', closeMenu);
+      overlay.addEventListener('click', closeMenu);
+
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+        closeMenu();
+        }
+      });
+
+      // Close when a link inside menu is clicked (so nav links navigate and menu hides)
+      menu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+        closeMenu();
+        });
+      });
+      })();
+    </script>
 
     <!-- Hero Section -->
     <section class="flex flex-col lg:flex-row items-center lg:items-center justify-between max-w-full mx-auto px-6 sm:px-10 lg:px-28 py-12 lg:py-16">
