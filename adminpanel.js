@@ -146,15 +146,17 @@
       loader.innerHTML = '<div class="bg-white rounded-lg px-6 py-4 shadow text-lg font-semibold flex items-center"><svg class="animate-spin mr-2 h-6 w-6 text-[#21C97B]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>Saving...</div>';
       socialForm.onsubmit = async function(e) {
         e.preventDefault();
-        if (!video || !socsubtext| !students || !earnings) {
-          alert('Please fill in all fields and select an image.');
-          return;
-        }
-        document.body.appendChild(loader);
+        // Read values first to avoid temporal-dead-zone / undefined reference
         const video = document.getElementById('video').value.trim();
         const students = document.getElementById('students').value.trim();
         const earnings = document.getElementById('earnings').value.trim();
         const socsubtext = document.getElementById('social-subtext').value.trim();
+        // validate inputs
+        if (!video || !socsubtext || !students || !earnings) {
+          alert('Please fill in all fields.');
+          return;
+        }
+        document.body.appendChild(loader);
         // Get the first doc in heroSection, or create one if none exists
         const socialProofSnap = await getDocs(collection(db, "socialProof"));
         let docId;

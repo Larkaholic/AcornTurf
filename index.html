@@ -78,45 +78,6 @@
       </div>
     </section>
 
-    <!-- SECTION 02: STAT STRIP (DARK GREEN) - compact on mobile -->
-    <section class="relative max-w-full w-full">
-      <div class="bg-[#015648] text-white">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6">
-          <div class="py-2 md:py-8 text-center">
-            <div id="social-subtext" class="text-[14px] md:text-[18px] text-white/70 font-normal">Trusted by 50+ successful Amazon Sellers worldwide</div>
-          </div>
-
-          <div class="py-2 md:py-6">
-            <div class="max-w-4xl mx-auto flex items-center justify-center text-center mb-6 md:mb-10 gap-4">
-              <!-- Stat 1 -->
-              <div class="px-2">
-                <div id="video" class="text-2xl md:text-[40px] font-bold">50+</div>
-                <div class="opacity-70 text-xs md:text-base mt-2 md:mt-4">Video Testimonials</div>
-              </div>
-
-              <!-- Divider -->
-              <div class="h-6 md:h-10 w-px bg-white/30" aria-hidden="true"></div>
-
-              <!-- Stat 2 -->
-              <div class="px-2">
-                <div id="students" class="text-2xl md:text-[40px] font-bold">100+</div>
-                <div class="opacity-70 text-xs md:text-base mt-2 md:mt-4">Students Mentored</div>
-              </div>
-
-              <!-- Divider -->
-              <div class="h-6 md:h-10 w-px bg-white/30" aria-hidden="true"></div>
-
-              <!-- Stat 3 -->
-              <div class="px-2">
-                <div id="earnings" class="text-2xl md:text-[40px] font-bold">$7k–$15k</div>
-                <div class="opacity-70 text-xs md:text-base mt-2 md:mt-4">Avg Monthly Earnings</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Live-updates: listen to Firestore heroSection and update DOM -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
@@ -162,7 +123,107 @@
         // If Firestore is not accessible, silently fail (keeps page usable offline)
         console.warn('Firestore heroSection listener failed:', err);
       }
+
+      // Listen for social proof updates and update stat strip
+      try {
+        onSnapshot(collection(db, 'socialProof'), (snap) => {
+          if (!snap.empty) {
+            const data = snap.docs[0].data();
+            const socialSubEl = document.getElementById('social-subtext');
+            const videoEl = document.getElementById('video');
+            const studentsEl = document.getElementById('students');
+            const earningsEl = document.getElementById('earnings');
+
+            if (socialSubEl) socialSubEl.textContent = data.socsubtext || data.subtext || socialSubEl.textContent;
+            if (videoEl) videoEl.textContent = data.video || videoEl.textContent;
+            if (studentsEl) studentsEl.textContent = data.students || studentsEl.textContent;
+            if (earningsEl) earningsEl.textContent = data.earnings || earningsEl.textContent;
+          }
+        });
+      } catch (err) {
+        console.warn('Firestore socialProof listener failed:', err);
+      }
+
+      // Listen for packages updates and update package cards (only headline, price, subtext, features)
+      try {
+        onSnapshot(collection(db, 'packages'), (snap) => {
+          if (snap.empty) return;
+          const pkgMap = {};
+          snap.forEach(docSnap => { pkgMap[docSnap.id] = docSnap.data(); });
+
+          function updatePackage(cardId, data, isDark = false) {
+            if (!data) return;
+            const card = document.getElementById(cardId);
+            if (!card) return;
+            const headlineEl = card.querySelector('h3');
+            const priceEl = card.querySelector('.text-4xl');
+            // target the subtext under the price (has mt-2) so we don't touch the badge
+            const subtextEl = card.querySelector('div.text-sm.mt-2');
+
+            if (headlineEl) headlineEl.textContent = data.headline || headlineEl.textContent;
+            if (priceEl) priceEl.textContent = data.price || priceEl.textContent;
+            if (subtextEl) subtextEl.textContent = data.subtext || subtextEl.textContent;
+
+            if (Array.isArray(data.features)) {
+              const featuresContainer = card.querySelector('.space-y-4');
+              if (featuresContainer) {
+                featuresContainer.innerHTML = '';
+                data.features.forEach(feature => {
+                  const row = document.createElement('div');
+                  row.className = 'flex items-start gap-3';
+                  row.innerHTML = `\n                    <svg class="w-5 h-5 ${isDark ? 'text-green-400' : 'text-green-500'} mt-1" fill="currentColor" viewBox="0 0 20 20">\n                      <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>\n                    </svg>\n                    <span>${feature}</span>`;
+                  featuresContainer.appendChild(row);
+                });
+              }
+            }
+          }
+
+          updatePackage('package1form', pkgMap['package1'] || Object.values(pkgMap)[0]);
+          updatePackage('package2form', pkgMap['package2'] || Object.values(pkgMap)[1], true);
+        });
+      } catch (err) {
+        console.warn('Firestore packages listener failed:', err);
+      }
     </script>
+
+    <!-- SECTION 02: STAT STRIP (DARK GREEN) - compact on mobile -->
+    <section class="relative max-w-full w-full">
+      <div class="bg-[#015648] text-white">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+          <div class="py-2 md:py-8 text-center">
+            <div id="social-subtext" class="text-[14px] md:text-[18px] text-white/70 font-normal">Trusted by 50+ successful Amazon Sellers worldwide</div>
+          </div>
+
+          <div class="py-2 md:py-6">
+            <div class="max-w-4xl mx-auto flex items-center justify-center text-center mb-6 md:mb-10 gap-4">
+              <!-- Stat 1 -->
+              <div class="px-2">
+                <div id="video" class="text-2xl md:text-[40px] font-bold">50+</div>
+                <div class="opacity-70 text-xs md:text-base mt-2 md:mt-4">Video Testimonials</div>
+              </div>
+
+              <!-- Divider -->
+              <div class="h-6 md:h-10 w-px bg-white/30" aria-hidden="true"></div>
+
+              <!-- Stat 2 -->
+              <div class="px-2">
+                <div id="students" class="text-2xl md:text-[40px] font-bold">100+</div>
+                <div class="opacity-70 text-xs md:text-base mt-2 md:mt-4">Students Mentored</div>
+              </div>
+
+              <!-- Divider -->
+              <div class="h-6 md:h-10 w-px bg-white/30" aria-hidden="true"></div>
+
+              <!-- Stat 3 -->
+              <div class="px-2">
+                <div id="earnings" class="text-2xl md:text-[40px] font-bold">$7k–$15k</div>
+                <div class="opacity-70 text-xs md:text-base mt-2 md:mt-4">Avg Monthly Earnings</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- SECTION 03: TRANSFORM (Before/After + 6 cards) -->
     <section class="relative bg-white rounded-t-[120px]">
@@ -395,8 +456,8 @@
           <div class="mb-6">
           <div class="text-sm text-white text-left bg-[#2ECC71] rounded-full w-[100px] py-1 px-2">Do With You</div>
           <h3 class="text-2xl font-semibold mt-2 text-left">Mentorship Program</h3>
-          <div class="text-4xl font-bold mt-4 text-left">$7,500</div>
           <div class="text-sm text-gray-600 mt-2 text-left">1:1 coaching with structured guidance</div>
+          <div class="text-4xl font-bold mt-4 text-left">$7,500</div>
           </div>
 
           <div class="space-y-4 flex-grow">
@@ -436,8 +497,8 @@
           <div class="mb-6">
           <div class="text-sm text-white text-left bg-[#2ECC71] rounded-full w-[100px] py-1 px-2">Done For You</div>
           <h3 class="text-2xl font-semibold mt-2 text-left">Full-Service Program</h3>
-          <div class="text-4xl font-bold mt-4 text-left">$15,000</div>
           <div class="text-sm text-white/70 mt-2 text-left">Complete business setup & management</div>
+          <div class="text-4xl font-bold mt-4 text-left">$15,000</div>
           </div>
 
           <div class="space-y-4 flex-grow">
