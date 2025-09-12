@@ -14,7 +14,7 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body>
+<body class="max-w-full overflow-x-hidden">
     <nav class="relative flex items-center justify-between px-4 md:px-10 py-4">
       <!-- Brand -->
       <div class="text-[28px] md:text-[32px] font-bold text-[#015648]">Acorn Turf LLC</div>
@@ -79,7 +79,7 @@
     </section>
 
     <!-- SECTION 02: STAT STRIP (DARK GREEN) - compact on mobile -->
-    <section class="relative">
+    <section class="relative max-w-full w-full">
       <div class="bg-[#015648] text-white">
         <div class="mx-auto max-w-7xl px-4 sm:px-6">
           <div class="py-2 md:py-8 text-center">
@@ -120,7 +120,7 @@
     <!-- SECTION 03: TRANSFORM (Before/After + 6 cards) -->
     <section class="relative bg-white rounded-t-[120px]">
       <div class="absolute top-0 left-0 w-full h-[180px] bg-[#015648] rounded-b-[60px] -z-10"></div>
-      <div class="max-w-[1200px] mx-auto px-6 py-28"> <!-- increased bottom padding to fit overlays -->
+      <div class="max-w-[1200px] mx-auto px-6 py-28">
 
       <!-- Heading -->
       <div class="text-center mb-16">
@@ -332,7 +332,7 @@
     </section>
 
     <!-- SECTION 04 -->
-    <section class="py-20 mt-[300px] max-h-[]">
+    <section class="py-20 mt-[300px]">
       <div class="max-w-full lg:w-[1200px] max-h-full h-[1083px] mx-auto px-6 rounded-[48px]" style="background-image: url('./src/Frame 39.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
       <div class="max-w-[1200px] mx-auto h-full flex flex-col items-center text-center px-6 pt-32">
         <div class="text-center mb-16">
@@ -568,7 +568,7 @@
     </section>
 
     <!-- WHY CHOOSE US -->
-    <section class="max-w-[1200px] mx-auto px-6 py-20">
+    <section class="max-w-[1200px] mx-auto px-6 py-20 overflow-x-hidden">
       <div class="text-center mb-12">
         <h2 class="text-[36px] md:text-[44px] font-semibold text-black">Why Choose <span class="text-[#2ECC71]">Acorn Turf LLC?</span></h2>
         <p class="mt-3 text-gray-600 max-w-[800px] mx-auto">Real experience. Proven results. Your success is our mission.</p>
@@ -578,7 +578,7 @@
       <div class="flex flex-col lg:flex-row items-center lg:items-start gap-8 mb-20">
         <!-- Image -->
         <div class="flex-1 flex items-center justify-center">
-          <div class="w-[520px] h-[360px] rounded-3xl bg-transparent">
+          <div class="w-[370px] h-[360px] rounded-3xl bg-transparent">
             <img src="./src/office-unman.jpg" alt="Office - Rio" class="w-full h-full object-cover rounded-bl-[160px] rounded-xl" />
           </div>
         </div>
@@ -612,7 +612,7 @@
 
         <!-- Image -->
         <div class="flex-1 order-1 lg:order-2 flex items-center justify-center">
-          <div class="w-[420px] h-[360px] rounded-3xl bg-transparent">
+          <div class="w-[370px] h-[360px] rounded-3xl bg-transparent">
             <img src="./src/office-man.jpg" alt="Office - Emmanuel" class="w-full h-full object-cover rounded-tr-[40px] rounded-bl-[160px] rounded-xl" />
           </div>
         </div>
@@ -642,7 +642,7 @@
             </div>
 
             <!-- Card 2 -->
-            <div class="relative h-[243px] bg-white border-2 border-emerald-200 rounded-[26px] rounded-tl-[28px] rounded-bl-[80px] p-8 shadow-sm translate-y-16 transition-transform">
+            <div class="relative h-[243px] bg-white border-2 border-emerald-200 rounded-[26px] rounded-tl-[28px] rounded-bl-[80px] p-8 shadow-sm md:translate-y-16 transition-transform">
                 <div class="absolute top-8 left-1/2 -translate-x-1/2 w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center font-semibold shadow">
                 2
                 </div>
@@ -662,7 +662,7 @@
             </div>
 
             <!-- Card 4 -->
-            <div class="relative h-[243px] bg-white border-2 border-emerald-200 rounded-[26px] rounded-br-[80px] p-8 shadow-sm translate-y-16 transition-transform">
+            <div class="relative h-[243px] bg-white border-2 border-emerald-200 rounded-[26px] rounded-br-[80px] p-8 shadow-sm md:translate-y-16 transition-transform">
                 <div class="absolute top-8 left-1/2 -translate-x-1/2 w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center font-semibold shadow">
                 4
                 </div>
@@ -735,7 +735,6 @@
           </div>
         </article>
 
-        <!-- Duplicate the same card 5 more times (copy/paste) -->
         <article class="bg-white rounded-2xl p-6 shadow-md">
           <div class="relative rounded-lg overflow-hidden bg-gray-100 h-44 flex items-center justify-center">
             <button aria-label="Play testimonial" class="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
@@ -851,6 +850,7 @@
             </div>
           </div>
         </article>
+
         <article class="bg-white rounded-2xl p-6 shadow-md">
           <div class="relative rounded-lg overflow-hidden bg-gray-100 h-44 flex items-center justify-center">
             <button aria-label="Play testimonial" class="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
@@ -1200,7 +1200,7 @@
     </section>
 
     <!-- SECTION 12: FOOTER -->
-    <footer class="bg-[#002F29] text-emerald-50">
+    <footer class="bg-[#002F29] text-emerald-50 px-5">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 py-10 grid gap-8 md:grid-cols-3">
             <div>
                 <div class="font-semibold text-[32px]">Acorn Turf LLC</div>
@@ -1239,7 +1239,6 @@
             <div class="mx-auto max-w-7xl px-4 sm:px-6 py-4 text-xs text-emerald-100/70 text-center">© 2025 Acorn Turf LLC. All rights reserved · Privacy Policy · Terms of Service</div>
         </div>
     </footer>
-    <!-- SCRIPTS: Drawer, Outside-click, ESC, Scroll reveal, FAQ    -->
 <script src="/script/script.js"></script>
 </body>
 </html>
