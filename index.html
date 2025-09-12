@@ -184,6 +184,36 @@
       } catch (err) {
         console.warn('Firestore packages listener failed:', err);
       }
+
+      // Listen for 'Why Choose Acorn' updates and update section headlines, subtexts and images
+      try {
+        onSnapshot(collection(db, 'whyChooseAcorn'), (snap) => {
+          if (snap.empty) return;
+          const data = snap.docs[0].data();
+
+          // Section 1
+          const s1Headline = document.getElementById('section1-headline');
+          const s1Sub = document.getElementById('section1-subtext');
+          // first image in the row (image is in previous sibling container)
+          const s1Image = document.querySelector('h3#section1-headline')?.closest('div')?.previousElementSibling?.querySelector('img');
+
+          if (s1Headline) s1Headline.textContent = data.section1Headline || s1Headline.textContent;
+          if (s1Sub) s1Sub.textContent = data.section1Subtext || s1Sub.textContent;
+          if (s1Image && data.section1ImageUrl) s1Image.src = data.section1ImageUrl;
+
+          // Section 2
+          const s2Headline = document.getElementById('section2-headline');
+          const s2Sub = document.getElementById('section2-subtext');
+          // image for section2 sits in the next sibling container
+          const s2Image = document.querySelector('h3#section2-headline')?.closest('div')?.nextElementSibling?.querySelector('img');
+
+          if (s2Headline) s2Headline.textContent = data.section2Headline || s2Headline.textContent;
+          if (s2Sub) s2Sub.textContent = data.section2Subtext || s2Sub.textContent;
+          if (s2Image && data.section2ImageUrl) s2Image.src = data.section2ImageUrl;
+        });
+      } catch (err) {
+        console.warn('Firestore whyChooseAcorn listener failed:', err);
+      }
     </script>
 
     <!-- SECTION 02: STAT STRIP (DARK GREEN) - compact on mobile -->
