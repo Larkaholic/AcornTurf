@@ -7,3 +7,4 @@ add the file you created in the list for easier assignment of debugging tasks (u
 - script.js (Kyle/Lark)
 - adminpanel.html (Duane)
 - adminpanel.js (Duane)
+- index.js (Duane)
