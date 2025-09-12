@@ -256,6 +256,14 @@
           <div class="mb-4">
             <span class="font-semibold text-lg">Testimonials Management</span>
           </div>
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-2" id="testimonial-pagination">
+              <!-- Pagination buttons will be rendered here: 1..6 -->
+            </div>
+            <div>
+              <button type="button" id="clear-slot-btn" class="text-sm text-red-500 hover:underline">Clear slot</button>
+            </div>
+          </div>
           <form id="testimonialform">
             <div class="mb-4">
               <label class="block text-gray-700 font-medium mb-2 text-sm" for="testimonial-text">Testimonial Text</label>
@@ -303,7 +311,7 @@
               </div>
             </div>
             <div class="flex justify-end">
-              <button type="submit" class="bg-[#21C97B] text-white rounded-full px-8 py-2 font-semibold text-lg shadow hover:bg-[#1ea86a] transition" id="videouploadbtn">Save</button>
+              <button type="submit" class="bg-[#21C97B] text-white rounded-full px-8 py-2 font-semibold text-lg shadow hover:bg-[#1ea86a] transition" id="testimonial-save-btn">Save</button>
             </div>
           </form>
         </div>

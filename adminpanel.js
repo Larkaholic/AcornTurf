@@ -527,6 +527,90 @@
       }
     }
 
+    // Testimonial slot pagination (1..6)
+    let activeTestimonialSlot = 1; // 1-based
+    const maxTestimonialSlots = 6;
+    const paginationContainer = document.getElementById('testimonial-pagination');
+    function renderTestimonialPagination() {
+      if (!paginationContainer) return;
+      paginationContainer.innerHTML = '';
+      for (let i = 1; i <= maxTestimonialSlots; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = String(i);
+        btn.className = (i === activeTestimonialSlot) ? 'px-3 py-1 rounded bg-[#21C97B] text-white font-semibold' : 'px-3 py-1 rounded border border-gray-200 bg-white';
+        btn.onclick = () => {
+          activeTestimonialSlot = i;
+          renderTestimonialPagination();
+          loadTestimonialSlot(activeTestimonialSlot);
+        };
+        paginationContainer.appendChild(btn);
+      }
+    }
+
+    async function loadTestimonialSlot(slotNumber) {
+      // load doc testimonials/slot-N if exists, and populate form
+      try {
+        const snap = await getDocs(collection(db, 'testimonials'));
+        // try to find doc with id `slot-N`
+        const targetId = `slot-${slotNumber}`;
+        const found = snap.docs.find(d => d.id === targetId);
+        // clear form first
+        document.getElementById('testimonial-text').value = '';
+        document.getElementById('author-name').value = '';
+        document.getElementById('author-title').value = '';
+        document.getElementById('monthly-revenue').value = '';
+        testimonialRating = 5;
+        Array.from(document.getElementById('starcontainer').children || []).forEach((s, idx) => {
+          s.classList.toggle('text-[#FFC107]', idx < testimonialRating);
+          s.classList.toggle('text-gray-300', idx >= testimonialRating);
+        });
+        testimonialVideoFile = null;
+        updateTestimonialVideoUploadUI('videouploaddrag', 'No file selected', document.getElementById('videouploadbtn'));
+        if (found) {
+          const data = found.data();
+          document.getElementById('testimonial-text').value = data.text || '';
+          document.getElementById('author-name').value = data.authorName || '';
+          document.getElementById('author-title').value = data.authorTitle || '';
+          document.getElementById('monthly-revenue').value = data.monthlyRevenue || '';
+          testimonialRating = data.rating || 5;
+          Array.from(document.getElementById('starcontainer').children || []).forEach((s, idx) => {
+            s.classList.toggle('text-[#FFC107]', idx < testimonialRating);
+            s.classList.toggle('text-gray-300', idx >= testimonialRating);
+          });
+          // If there's a videoUrl we show filename placeholder (no download)
+          if (data.videoUrl) {
+            const parts = data.videoUrl.split('/');
+            const last = parts[parts.length - 1] || 'video';
+            updateTestimonialVideoUploadUI('videouploaddrag', decodeURIComponent(last), document.getElementById('videouploadbtn'));
+          }
+        }
+      } catch (err) {
+        console.error('Failed loading testimonial slot', err);
+      }
+    }
+
+    function slotDocId(slotNumber) {
+      return `slot-${slotNumber}`;
+    }
+
+    // Clear/delete slot
+    const clearSlotBtn = document.getElementById('clear-slot-btn');
+    if (clearSlotBtn) {
+      clearSlotBtn.onclick = async () => {
+        if (!confirm(`Clear testimonial slot ${activeTestimonialSlot}? This will delete the slot document.`)) return;
+        try {
+          await setDoc(doc(db, 'testimonials', slotDocId(activeTestimonialSlot)), {}, { merge: false });
+          // delete using low-level doc delete if available
+          try { await doc(db, 'testimonials', slotDocId(activeTestimonialSlot)).delete(); } catch(e) { /* ignore if not allowed */ }
+        } catch (e) { console.warn(e); }
+        loadTestimonialSlot(activeTestimonialSlot);
+        renderTestimonials();
+      };
+    }
+
+    renderTestimonialPagination();
+
     const testimonialForm = document.getElementById('testimonialform');
     if (testimonialForm) {
       testimonialForm.onsubmit = async function(e) {
@@ -545,11 +629,12 @@
         document.body.appendChild(loader);
         let videoUrl = '';
         if (testimonialVideoFile) {
-          const storageRef = ref(storage, 'testimonials/videos/' + Date.now() + '_' + testimonialVideoFile.name);
+          const storageRef = ref(storage, `testimonials/videos/${Date.now()}_${testimonialVideoFile.name}`);
           await uploadBytes(storageRef, testimonialVideoFile);
           videoUrl = await getDownloadURL(storageRef);
         }
-        await addDoc(collection(db, "testimonials"), {
+        // Save to a specific slot doc
+        await setDoc(doc(db, 'testimonials', slotDocId(activeTestimonialSlot)), {
           text,
           authorName,
           authorTitle,
