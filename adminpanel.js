@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
-  import { getFirestore, collection, addDoc, doc, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, doc, getDocs, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
   import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 
   // TODO: Add SDKs for Firebase products that you want to use
@@ -602,7 +602,7 @@
         try {
           await setDoc(doc(db, 'testimonials', slotDocId(activeTestimonialSlot)), {}, { merge: false });
           // delete using low-level doc delete if available
-          try { await doc(db, 'testimonials', slotDocId(activeTestimonialSlot)).delete(); } catch(e) { /* ignore if not allowed */ }
+          try { await deleteDoc(doc(db, 'testimonials', slotDocId(activeTestimonialSlot))); } catch(e) { /* ignore if not allowed */ }
         } catch (e) { console.warn(e); }
         loadTestimonialSlot(activeTestimonialSlot);
         renderTestimonials();
@@ -769,7 +769,7 @@
         deleteBtn.onclick = () => {
           showDeleteModal(testimonialId, async () => {
             await setDoc(doc(db, 'testimonials', testimonialId), {}, { merge: false });
-            await doc(db, 'testimonials', testimonialId).delete();
+            await deleteDoc(doc(db, 'testimonials', testimonialId));
             renderTestimonials();
           });
         };
@@ -781,6 +781,7 @@
       });
     }
     renderTestimonials();
+    
     // FAQ Management Section
     async function renderFAQs() {
       const faqsList = document.getElementById('faqs-list');
@@ -819,7 +820,7 @@
         deleteBtn.onclick = () => {
           showFAQDeleteModal(faqId, async () => {
             await setDoc(doc(db, 'faqs', faqId), {}, { merge: false });
-            await doc(db, 'faqs', faqId).delete();
+            await deleteDoc(doc(db, 'faqs', faqId));
             renderFAQs();
           });
         };
