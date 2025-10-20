@@ -14,8 +14,8 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style> -->
 </head>
-<body class="max-w-full overflow-x-hidden">
-    <nav class="relative flex items-center justify-between px-4 md:px-10 py-4 bg-[#015648]">
+<body class="max-w-full overflow-x-hidden bg-[#015648] font-poppins">
+    <nav class="relative flex items-center justify-between px-4 md:px-[70px] py-4 bg-[#015648] mt-[35px]">
       <!-- Brand -->
       <div class="text-[28px] md:text-[32px] font-bold text-[#2ECC71] ml-[20px]">Acorn <span class="text-white">Brands Academy</span></div>
 
@@ -36,13 +36,16 @@
       </ul>
 
       <!-- Desktop CTA (right) -->
-      <div class="hidden md:block">
-      <a href="#" class="bg-[#2ECC71] text-white px-6 py-3 text-lg rounded-[16px] font-semibold shadow hover:bg-green-700 transition">Book Free Strategy Call</a>
+      <div class="hidden md:flex">
+        <a href="#" class="flex bg-[#2ECC71] text-white px-[24px] py-[16px] text-lg rounded-[16px] font-semibold shadow hover:bg-green-700 transition">Book Free Strategy Call
+          <svg class="w-5 h-5 text-white mt-1 ml-[10px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        
       </div>
 
       <!-- Mobile controls: CTA beside hamburger (right) -->
       <div class="flex items-center md:hidden space-x-2">
-      <a href="#" class="bg-[#015648] text-white px-4 py-2 rounded-full text-sm font-semibold shadow">Book a Call</a>
+      <a href="#" class="bg-[#015648] text-white px-4 py-2 rounded-full text-sm font-semibold shadow">Book Free Strategy Call</a>
 
       <button id="mobileMenuButton" class="ml-0 p-4 rounded-md text-[#015648]" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
@@ -171,12 +174,12 @@
         }
 
         .acorn-img {
-          max-width: 60%;
+          max-width: 55%;
           width: auto;
           height: auto;
           opacity: .9;
           object-fit: contain;
-          transform: translateY(-6%); /* nudge if needed */
+          transform: translateY(-6%);
         }
 
         /* ensure the text & other content that follows in the hero sits above the image */
@@ -192,19 +195,19 @@
       </style>
       <!-- Left: Text (center on mobile, left on desktop) -->
       <div class="flex-1 flex flex-col items-center lg:items-start justify-center space-y-6 text-center lg:text-left">
-        <h1 id="headline" class="text-[34px] sm:text-[40px] md:text-[56px] lg:text-[80px] font-semibold text-white leading-tight md:leading-[88px]">
+        <h1 id="" class="text-[34px] sm:text-[40px] md:text-[56px] lg:text-[80px] font-semibold text-white leading-tight md:leading-[88px]">
           Launch Your <br />
           Amazon Brand <br />
           in <span class="text-[#2ECC71]">90 Days</span>
         </h1>
 
-        <p id="subtext" class="text-base sm:text-lg md:text-2xl text-white max-w-xl">
-          From overwhelmed to confident Amazon brand owner — with hands-on mentorship or done-for-you execution.
+        <p id="subtext" class="text-base sm:text-lg md:text-[20px] text-white max-w-xl">
+          Join over 100 students who built profitable Amazon stores through hands-on guidance, not another course.
         </p>
 
         <div class="flex flex-row items-center sm:items-start sm:space-y-0 sm:space-x-6 gap-5">
-          <a href="#" class="bg-green-500 text-white px-8 py-3 rounded-[16px] font-normal shadow hover:bg-green-600 transition flex items-center justify-center space-x-1">
-            <span>Book Free Call</span>
+          <a href="#" class="bg-green-500 text-white px-[40px] py-[24px] rounded-[16px] font-[18px] shadow hover:bg-green-600 transition flex items-center justify-center space-x-1">
+            <span>Book Free Strategy Call</span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
         </div>
@@ -453,12 +456,12 @@
     
     <section class="relative max-w-full w-full">
       <div class="bg-[#2ECC71] text-white">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6">
-          <div class="py-2 md:py-8 text-center">
+        <div class="mx-auto max-w-7xl px-4 sm:px-0">
+          <div class="pt-2 md:pt-[35px] text-center md:pb-[19px]">
             <div id="" class="text-[14px] md:text-[18px] text-white font-normal">Trusted by 50+ successful Amazon Sellers worldwide</div>
           </div>
 
-          <div class="py-2 md:py-6">
+          <div class="py-b md:pb-6">
             <div class="max-w-4xl mx-auto flex items-center justify-center text-center mb-6 md:mb-10 gap-4">
               <!-- Stat 1 -->
               <div class="px-2">
@@ -494,10 +497,10 @@
       <div class="max-w-full mx-auto px-6 py-20">
         <!-- Heading -->
         <div class="text-center mb-12">
-          <h2 class="font-[Poppins] font-semibold text-4xl md:text-6xl">
+          <h2 class="font-[Poppins] font-semibold text-4xl md:text-[60px] leading-[70px]">
             Let’s Transform Your <span class="text-[#2ECC71]"><br>Amazon Journey</span>
           </h2>
-          <p class="mt-3 text-gray-600 max-w-2xl mx-auto text-2xl md:text-3xl">
+          <p class="mt-3 text-[#1E1E1E] max-w-2xl mx-auto text-2xl md:text-[28px]">
             Stop struggling alone. Join entrepreneurs who've made the leap from confusion to clarity.
           </p>
         </div>
@@ -506,15 +509,15 @@
         <div class="mx-auto max-w-6xl overflow-visible">
           <div class="flex flex-col lg:flex-row">
             <!-- Before -->
-            <div class="relative lg:w-1/2 w-full h-[320px] lg:h-[420px] text-center">
+            <div class="relative lg:w-1/2 w-full h-[320px] lg:h-[639px] text-center">
               <img src="./src/before.jpg" alt="Before" class="object-cover w-full h-full rounded-tl-[40px] rounded-bl-[160px] border-2 border-[#4F4F4F]" />
-              <div class="absolute left-1/2 -bottom-6 -translate-x-1/2 bg-[#99A1AF] px-8 py-4 rounded-[16px] text-[24px] font-regular text-white shadow text-center">Before</div>
+              <div class="absolute left-1/2 -bottom-6 -translate-x-1/2 bg-[#99A1AF] px-[32px] py-[16px] rounded-[16px] text-[24px] font-regular text-white shadow text-center">Before</div>
             </div>
 
             <!-- After -->
-            <div class="relative lg:w-1/2 w-full h-[320px] lg:h-[420px] text-center">
+            <div class="relative lg:w-1/2 w-full h-[320px] lg:h-[639px] text-center">
               <img src="./src/after.jpg" alt="After" class="object-cover w-full h-full rounded-tr-[40px] rounded-br-[160px] border-2 border-[#2ECC71]" />
-              <div class="absolute left-1/2 -bottom-6 -translate-x-1/2 bg-[#2ECC71] px-8 py-4 rounded-[16px] text-[24px] font-regular text-white shadow text-center">After</div>
+              <div class="absolute left-1/2 -bottom-6 -translate-x-1/2 bg-[#2ECC71] px-[32px] py-[16px] rounded-[16px] text-[24px] font-regular text-white shadow text-center">After</div>
             </div>
           </div>
         </div>
@@ -600,6 +603,116 @@
                 <div class="text-sm text-emerald-800 font-medium">Income on your own terms, not someone else's</div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENTOR -->
+    <section class="w-full mx-auto px-6 py-20 bg-white text-center">
+      <div class="flex flex-col lg:flex-row items-center justify-center gap-12 max-w-7xl mx-auto">
+      <!-- Left: Portrait with badges -->
+      <div class="relative w-full lg:w-1/2 max-w-[640px] mx-auto">
+        <!-- Double-exposure effect using two copies of the same image -->
+        <div class="relative w-full h-[640px] rounded-3xl overflow-hidden">
+        <!-- Back layer (slightly shifted, darker) -->
+        <img src="./src/office-unman.jpg" alt="" class="absolute inset-0 w-full h-full object-cover transform translate-x-6 translate-y-6 opacity-70 rounded-3xl rounded-bl-[160px]" />
+        <!-- Front layer -->
+        <img src="./src/office-unman.jpg" alt="Mentor portrait" class="relative w-full h-full object-cover rounded-3xl rounded-bl-[160px] shadow-xl" />
+        </div>
+
+        <!-- Top-right badge -->
+        <div class="absolute -top-6 right-0 transform translate-x-8">
+          <div class="bg-white border-2 border-emerald-300 rounded-[18px] rounded-bl-[42px] w-[150px] h-[96px] flex flex-col items-center justify-center px-4 py-3 shadow-md mr-10">
+            <div class="w-[24px] h-[24px] bg-emerald-500 rounded-full flex items-center justify-center mb-2" aria-hidden="true">
+              <svg class="w-5 h-10 mx-auto block" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Trend icon">
+                <!-- Bars -->
+                <rect x="3"  y="11" width="3" height="6" rx="0.5" fill="white"/>
+                <rect x="9"  y="7"  width="3" height="10" rx="0.5" fill="white"/>
+                <rect x="15" y="13" width="3" height="4"  rx="0.5" fill="white"/>
+                <!-- Trend line -->
+                <path d="M2.5 15.5 L8 10 L11.5 13.5 L18 7" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <!-- Arrow head -->
+                <polyline points="17.2,6.2 18,7 16.4,7.6" fill="white" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div class="text-[14px] font-bold text-[#2ECC71] leading-tight">7‑Figure</div>
+            <div class="text-[14px] font-regular text-slate-800 -mt-0.5">Amazon Seller</div>
+          </div>
+        </div>
+
+        <!-- Bottom-left badge (moved to overlap portrait) -->
+        <div class="absolute z-40 left-6 -bottom-12 lg:left-10 lg:-bottom-5">
+          <div class="bg-white border-2 border-emerald-300 rounded-[18px] rounded-bl-[42px] w-[150px] h-[110px] flex flex-col items-center justify-center px-4 py-3 shadow-md">
+            <div class="w-[24px] h-[24px] bg-[#2ECC71] rounded-full flex items-center justify-center " aria-hidden="true">
+              <svg class="w-5 h-10 text-white mx-auto block" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Students icon">
+                <circle cx="12" cy="7.5" r="2.8" fill="white"/>
+                <circle cx="6.5" cy="11.5" r="1.6" fill="white"/>
+                <circle cx="17.5" cy="11.5" r="1.6" fill="white"/>
+              </svg>
+            </div>
+
+            <div class="flex items-baseline">
+              <div class="text-[14px] font-bold text-[#2ECC71] leading-tight">100</div>
+              <div class="text-[14px] font-bold text-[#2ECC71] ml-1">+</div>
+            </div>
+
+            <div class="text-[12px] font-regular text-slate-800 text-center">Students Mentored</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Copy, bullets, CTA -->
+      <div class="w-full lg:w-1/2 max-w-[700px] mx-auto">
+        <div class="max-w-[680px] mx-auto text-left">
+          <span class="inline-block bg-[#C2A13E] text-white px-3 py-1 rounded-full text-sm font-medium text-left">Meet Your Mentor</span>
+
+          <h2 class="text-left text-[36px] md:text-[48px] lg:text-[56px] leading-tight font-semibold text-slate-900 mt-4">
+            From Night Shifts to <br />
+            <span class="text-[#2ECC71]">Financial Freedom</span>
+          </h2>
+
+          <p class="mt-[6px] text-[20px] text-[#1E1E1E] max-w-[640px] mx-auto">
+            Rio’s journey from ICU nurse working exhausting night shifts to building a 7-figure Amazon empire is a testament to what's possible with the right system and dedication.
+          </p>
+
+          <div class="mt-8 space-y-4 items-center">
+            <div class="flex items-start gap-4 max-w-[560px] mx-auto text-left">
+            <div class="w-16 h-10 bg-[#2ECC71] text-white rounded-full flex items-center justify-center shadow-sm">
+              <svg class="w-5 h-5 mx-auto block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3-1.567 3-3.5S13.657 1 12 1 9 2.567 9 4.5 10.343 8 12 8zM6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" /></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-slate-900">The Healthcare Hero</div>
+              <div class="text-sm text-slate-600">Rio spent years as an ICU nurse, saving lives but struggling financially despite the demanding work and emotional toll of healthcare.</div>
+            </div>
+            </div>
+
+            <div class="flex items-start gap-4 max-w-[560px] mx-auto text-left">
+            <div class="w-16 h-10 bg-[#2ECC71] text-white rounded-full flex items-center justify-center shadow-sm">
+              <svg class="w-5 h-5 mx-auto block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h4l3 8 4-16 3 8h4" /></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-slate-900">The Breakthrough</div>
+              <div class="text-sm text-slate-600">Discovering Amazon FBA changed everything. Through trial, error, and relentless learning, Rio cracked the code to consistent 6-figure monthly revenue.</div>
+            </div>
+            </div>
+
+            <div class="flex items-start gap-4 max-w-[560px] mx-auto text-left">
+            <div class="w-16 h-10 bg-[#2ECC71] text-white rounded-full flex items-center justify-center shadow-sm">
+              <svg class="w-5 h-5 mx-auto block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zM12 14v7" /></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-slate-900">Paying It Forward</div>
+              <div class="text-sm text-slate-600">Now Rio dedicates their time to teaching others the exact system that transformed their life, with over 100+ students achieving remarkable success.</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <a href="#" class="inline-flex items-center bg-[#2ECC71] text-white px-[55px] py-[20px] rounded-[20px] font-semibold shadow hover:bg-emerald-600 transition">
+              Learn Rio’s System →
+            </a>
           </div>
         </div>
       </div>
@@ -1174,117 +1287,6 @@
             </div>
           </article>
         </div>
-    </section>
-
-    <!-- MENTOR -->
-    <section class="max-w-7xl mx-auto px-6 py-20">
-      <div class="flex flex-col lg:flex-row items-center gap-12">
-      <!-- Left: Portrait with badges -->
-      <div class="relative w-full lg:w-1/2 max-w-[640px]">
-        <!-- Double-exposure effect using two copies of the same image -->
-        <div class="relative w-full h-[640px] rounded-3xl overflow-hidden">
-        <!-- Back layer (slightly shifted, darker) -->
-        <img src="./src/office-unman.jpg" alt="" class="absolute inset-0 w-full h-full object-cover transform translate-x-6 translate-y-6 opacity-70 rounded-3xl rounded-bl-[160px]" />
-        <!-- Front layer -->
-        <img src="./src/office-unman.jpg" alt="Mentor portrait" class="relative w-full h-full object-cover rounded-3xl rounded-bl-[160px] shadow-xl" />
-        </div>
-
-      <!-- Top-right badge -->
-      <div class="absolute -top-6 right-0 transform translate-x-8">
-        <div class="bg-white border-2 border-emerald-300 rounded-[18px] rounded-bl-[42px] w-[150px] h-[96px] flex flex-col items-center justify-center px-4 py-3 shadow-md mr-10">
-          <div class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center mb-2" aria-hidden="true">
-            <svg class="w-5 h-10 mx-auto block" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Trend icon">
-              <!-- Bars -->
-              <rect x="3"  y="11" width="3" height="6" rx="0.5" fill="white"/>
-              <rect x="9"  y="7"  width="3" height="10" rx="0.5" fill="white"/>
-              <rect x="15" y="13" width="3" height="4"  rx="0.5" fill="white"/>
-              <!-- Trend line -->
-              <path d="M2.5 15.5 L8 10 L11.5 13.5 L18 7" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <!-- Arrow head -->
-              <polyline points="17.2,6.2 18,7 16.4,7.6" fill="white" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-
-          <div class="text-[18px] font-semibold text-emerald-600 leading-tight">7‑Figure</div>
-          <div class="text-sm text-slate-800 -mt-0.5">Amazon Seller</div>
-        </div>
-      </div>
-
-        <!-- Bottom-left badge (moved to overlap portrait) -->
-        <div class="absolute z-40 left-6 -bottom-12 lg:left-10 lg:-bottom-5">
-          <div class="bg-white border-2 border-emerald-300 rounded-[18px] rounded-bl-[42px] w-[150px] h-[110px] flex flex-col items-center justify-center px-4 py-3 shadow-md">
-            <div class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center " aria-hidden="true">
-              <svg class="w-5 h-10 text-white mx-auto block" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Students icon">
-                <circle cx="12" cy="7.5" r="2.8" fill="white"/>
-                <circle cx="6.5" cy="11.5" r="1.6" fill="white"/>
-                <circle cx="17.5" cy="11.5" r="1.6" fill="white"/>
-              </svg>
-            </div>
-
-            <div class="flex items-baseline">
-              <div class="text-[18px] font-bold text-emerald-600 leading-tight">100</div>
-              <div class="text-[18px] font-bold text-emerald-500 ml-1">+</div>
-            </div>
-
-            <div class="text-[14px] text-slate-800 text-center">Students Mentored</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right: Copy, bullets, CTA -->
-      <div class="w-full lg:w-1/2 max-w-[700px]">
-        <div class="max-w-[680px]">
-        <span class="inline-block bg-emerald-800 text-white px-3 py-1 rounded-full text-sm font-medium mb-4">Meet Your Mentor</span>
-
-        <h2 class="text-[36px] md:text-[48px] lg:text-[56px] leading-tight font-semibold text-slate-900 mt-4">
-          From Night Shifts to <br />
-          <span class="text-[#2ECC71]">Financial Freedom</span>
-        </h2>
-
-        <p class="mt-6 text-lg text-slate-600 max-w-[640px]">
-          Rio’s journey from ICU nurse working exhausting night shifts to building a 7-figure Amazon empire is a testament to what's possible with the right system and dedication.
-        </p>
-
-        <div class="mt-8 space-y-4">
-          <div class="flex items-start gap-4">
-          <div class="w-16 h-10 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center shadow-sm">
-            <svg class="w-5 h-5 mx-auto block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3-1.567 3-3.5S13.657 1 12 1 9 2.567 9 4.5 10.343 8 12 8zM6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" /></svg>
-          </div>
-          <div>
-            <div class="font-semibold text-slate-900">The Healthcare Hero</div>
-            <div class="text-sm text-slate-600">Rio spent years as an ICU nurse, saving lives but struggling financially despite the demanding work and emotional toll of healthcare.</div>
-          </div>
-          </div>
-
-          <div class="flex items-start gap-4">
-          <div class="w-16 h-10 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center shadow-sm">
-            <svg class="w-5 h-5 mx-auto block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h4l3 8 4-16 3 8h4" /></svg>
-          </div>
-          <div>
-            <div class="font-semibold text-slate-900">The Breakthrough</div>
-            <div class="text-sm text-slate-600">Discovering Amazon FBA changed everything. Through trial, error, and relentless learning, Rio cracked the code to consistent 6-figure monthly revenue.</div>
-          </div>
-          </div>
-
-          <div class="flex items-start gap-4">
-          <div class="w-16 h-10 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center shadow-sm">
-            <svg class="w-5 h-5 mx-auto block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zM12 14v7" /></svg>
-          </div>
-          <div>
-            <div class="font-semibold text-slate-900">Paying It Forward</div>
-            <div class="text-sm text-slate-600">Now Rio dedicates their time to teaching others the exact system that transformed their life, with over 100+ students achieving remarkable success.</div>
-          </div>
-          </div>
-        </div>
-
-        <div class="mt-8">
-          <a href="#" class="inline-flex items-center bg-[#2ECC71] text-white px-6 py-3 rounded-full font-semibold shadow hover:bg-emerald-600 transition">
-          Learn Rio’s System →
-          </a>
-        </div>
-        </div>
-      </div>
-      </div>
     </section>
 
   <!-- FAQ -->
